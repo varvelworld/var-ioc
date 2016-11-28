@@ -19,4 +19,9 @@ public class TestBeans {
         return new HelloPOJO("hello world2");
     }
 
+    @Bean
+    public HiService hi() {
+        return new HiService();
+    }
+
 }

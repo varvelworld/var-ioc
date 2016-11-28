@@ -9,5 +9,8 @@ import io.github.varvelworld.var.ioc.meta.BeansMeta;
 public interface IocContainer {
     void addBeans(BeansMeta beansMeta);
     void addBean(BeanMeta beanMeta);
+
+    void injectBeans();
+
     Object getBean(String id);
 }

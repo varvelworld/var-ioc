@@ -1,8 +1,7 @@
 package io.github.varvelworld.var.ioc.core;
 
-import io.github.varvelworld.var.ioc.core.IocContainer;
-import io.github.varvelworld.var.ioc.meta.BeanMeta;
-import io.github.varvelworld.var.ioc.meta.BeansMeta;
+import io.github.varvelworld.var.ioc.meta.*;
+import io.github.varvelworld.var.ioc.meta.factory.BeanResourcesMetaFactory;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -12,7 +11,13 @@ import java.util.Map;
  */
 public class IocContainerImpl implements IocContainer {
 
-    private Map<String, Object> beanMap = new HashMap<>();
+    final private Map<String, Object> beanMap = new HashMap<>();
+    final private BeanResourcesMetaFactory beanResourcesMetaFactory;
+
+    public IocContainerImpl(BeanResourcesMetaFactory beanResourcesMetaFactory) {
+        this.beanResourcesMetaFactory = beanResourcesMetaFactory;
+    }
+
 
     @Override
     public void addBeans(BeansMeta beansMeta) {
@@ -23,6 +28,17 @@ public class IocContainerImpl implements IocContainer {
     public void addBean(BeanMeta beanMeta) {
         if(beanMap.putIfAbsent(beanMeta.getId(), beanMeta.createBean()) != null) {
             throw new RuntimeException("duplication id");
+        }
+
+    }
+
+    @Override
+    public void injectBeans() {
+        for(Map.Entry<String, Object> entry : beanMap.entrySet()) {
+            BeanResourcesMeta beanResourcesMeta = beanResourcesMetaFactory.createBeanResourcesMeta(entry.getValue());
+            for (ResourceMeta resourceMeta : beanResourcesMeta.getResourceMetaList()) {
+                resourceMeta.getBeanInjector().inject(beanMap.get(resourceMeta.getId()));
+            }
         }
     }
 
