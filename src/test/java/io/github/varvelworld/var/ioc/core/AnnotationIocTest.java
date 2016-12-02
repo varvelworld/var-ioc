@@ -10,7 +10,7 @@ import org.junit.Test;
 /**
  * Created by luzhonghao on 2016/11/26.
  */
-public class IocContainerImplTest {
+public class AnnotationIocTest {
 
     @Test
     public void addBeans() throws Exception {

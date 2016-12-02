@@ -1,8 +1,8 @@
-package io.github.varvelworld.var.ioc.meta.factory;
+package io.github.varvelworld.var.ioc.annotation;
 
 import io.github.varvelworld.var.ioc.core.BeanFactory;
-import io.github.varvelworld.var.ioc.annotation.Bean;
 import io.github.varvelworld.var.ioc.meta.BeanMeta;
+import io.github.varvelworld.var.ioc.meta.factory.BeanMetaFactory;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;

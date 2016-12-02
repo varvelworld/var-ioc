@@ -30,10 +30,11 @@ public class IocContainerImpl implements IocContainer {
     public void injectBeans() {
         for(Map.Entry<String, BeanContext> entry : beanMap.entrySet()) {
             BeanContext beanContext = entry.getValue();
+            Object bean = beanContext.getBean();
             BeanMeta beanMeta = beanContext.getBeanMeta();
             BeanResourcesMeta beanResourcesMeta = beanMeta.createBeanResourcesMeta(beanContext);
             for (ResourceMeta resourceMeta : beanResourcesMeta.getResourceMetaList()) {
-                resourceMeta.getBeanInjector().inject(getBean(resourceMeta.getId()));
+                resourceMeta.getBeanInjector().inject(bean, getBean(resourceMeta.getId()));
             }
         }
     }

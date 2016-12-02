@@ -1,9 +1,9 @@
-package io.github.varvelworld.var.ioc.meta.factory;
+package io.github.varvelworld.var.ioc.annotation;
 
 import io.github.varvelworld.var.ioc.meta.BeansMeta;
+import io.github.varvelworld.var.ioc.meta.factory.BeanMetaFactory;
+import io.github.varvelworld.var.ioc.meta.factory.BeansMetaFactory;
 import io.github.varvelworld.var.ioc.util.Preconditions;
-import io.github.varvelworld.var.ioc.annotation.Bean;
-import io.github.varvelworld.var.ioc.annotation.Beans;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;

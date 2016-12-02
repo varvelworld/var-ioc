@@ -1,8 +1,8 @@
-package io.github.varvelworld.var.ioc.meta.factory;
+package io.github.varvelworld.var.ioc.annotation;
 
-import io.github.varvelworld.var.ioc.annotation.Resource;
 import io.github.varvelworld.var.ioc.core.BeanInjector;
 import io.github.varvelworld.var.ioc.meta.ResourceMeta;
+import io.github.varvelworld.var.ioc.meta.factory.ResourceMetaFactory;
 
 import java.lang.reflect.Field;
 
@@ -12,14 +12,12 @@ import java.lang.reflect.Field;
 public class AnnotationResourceMetaFactoryImpl implements ResourceMetaFactory {
 
     final Resource annotation;
-    final Object bean;
     final BeanInjector beanInjector ;
     final String id;
 
-    public AnnotationResourceMetaFactoryImpl(Resource annotation, Object bean, Field field) {
+    public AnnotationResourceMetaFactoryImpl(Resource annotation, Field field) {
         this.annotation = annotation;
-        this.bean = bean;
-        this.beanInjector = injectBean -> {
+        this.beanInjector = (bean, injectBean) -> {
             try {
                 field.setAccessible(true);
                 field.set(bean, injectBean);
@@ -38,10 +36,6 @@ public class AnnotationResourceMetaFactoryImpl implements ResourceMetaFactory {
 
     public Resource getAnnotation() {
         return annotation;
-    }
-
-    public Object getBean() {
-        return bean;
     }
 
     public BeanInjector getBeanInjector() {

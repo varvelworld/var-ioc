@@ -1,8 +1,9 @@
-package io.github.varvelworld.var.ioc.meta.factory;
+package io.github.varvelworld.var.ioc.annotation;
 
-import io.github.varvelworld.var.ioc.annotation.Resource;
 import io.github.varvelworld.var.ioc.core.BeanContext;
 import io.github.varvelworld.var.ioc.meta.BeanResourcesMeta;
+import io.github.varvelworld.var.ioc.meta.factory.BeanResourcesMetaFactory;
+import io.github.varvelworld.var.ioc.meta.factory.ResourceMetaFactory;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -22,7 +23,7 @@ public class AnnotationBeanResourcesMetaFactoryImpl implements BeanResourcesMeta
             if(annotation == null) {
                 continue;
             }
-            ResourceMetaFactory resourceMetaFactory = new AnnotationResourceMetaFactoryImpl(annotation, bean, field);
+            ResourceMetaFactory resourceMetaFactory = new AnnotationResourceMetaFactoryImpl(annotation, field);
             resourceMetaFactoryList.add(resourceMetaFactory);
         }
         return new BeanResourcesMeta(resourceMetaFactoryList.stream()

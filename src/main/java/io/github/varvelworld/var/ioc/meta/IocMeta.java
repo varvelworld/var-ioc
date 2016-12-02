@@ -1,6 +1,6 @@
 package io.github.varvelworld.var.ioc.meta;
 
-import io.github.varvelworld.var.ioc.meta.factory.AnnotationBeansMetaFactoryImpl;
+import io.github.varvelworld.var.ioc.annotation.AnnotationBeansMetaFactoryImpl;
 
 /**
  * Created by luzhonghao on 2016/11/26.
