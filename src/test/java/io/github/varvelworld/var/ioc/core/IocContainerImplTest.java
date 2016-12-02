@@ -14,7 +14,7 @@ public class IocContainerImplTest {
 
     @Test
     public void addBeans() throws Exception {
-        final IocContainer iocContainer = new IocContainerImpl(IocMeta.createBeanResourcesMetaFactoryByAnnotation());
+        final IocContainer iocContainer = new IocContainerImpl();
         iocContainer.addBeans(IocMeta.createBeansMetaByAnnotation(TestBeans.class));
         HelloPOJO helloPOJO = (HelloPOJO) iocContainer.getBean("fun");
         HelloPOJO helloPOJO2 = (HelloPOJO) iocContainer.getBean("fun2");
@@ -24,7 +24,7 @@ public class IocContainerImplTest {
 
     @Test
     public void injectBean() throws Exception {
-        final IocContainer iocContainer = new IocContainerImpl(IocMeta.createBeanResourcesMetaFactoryByAnnotation());
+        final IocContainer iocContainer = new IocContainerImpl();
         iocContainer.addBeans(IocMeta.createBeansMetaByAnnotation(TestBeans.class));
         iocContainer.injectBeans();
         HiService hiService = (HiService) iocContainer.getBean("hi");

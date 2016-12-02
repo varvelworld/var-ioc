@@ -33,6 +33,6 @@ public class AnnotationBeanMetaFactoryImpl implements BeanMetaFactory {
     }
 
     public BeanMeta createBeanMeta() {
-        return new BeanMeta(beanId, beanFactory);
+        return new BeanMeta(beanId, beanFactory, new AnnotationBeanResourcesMetaFactoryImpl());
     }
 }

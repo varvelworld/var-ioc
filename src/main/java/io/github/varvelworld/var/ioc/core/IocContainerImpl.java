@@ -12,12 +12,6 @@ import java.util.Map;
 public class IocContainerImpl implements IocContainer {
 
     final private Map<String, BeanContext> beanMap = new HashMap<>();
-    final private BeanResourcesMetaFactory beanResourcesMetaFactory;
-
-    public IocContainerImpl(BeanResourcesMetaFactory beanResourcesMetaFactory) {
-        this.beanResourcesMetaFactory = beanResourcesMetaFactory;
-    }
-
 
     @Override
     public void addBeans(BeansMeta beansMeta) {
@@ -35,7 +29,9 @@ public class IocContainerImpl implements IocContainer {
     @Override
     public void injectBeans() {
         for(Map.Entry<String, BeanContext> entry : beanMap.entrySet()) {
-            BeanResourcesMeta beanResourcesMeta = beanResourcesMetaFactory.createBeanResourcesMeta(entry.getValue());
+            BeanContext beanContext = entry.getValue();
+            BeanMeta beanMeta = beanContext.getBeanMeta();
+            BeanResourcesMeta beanResourcesMeta = beanMeta.createBeanResourcesMeta(beanContext);
             for (ResourceMeta resourceMeta : beanResourcesMeta.getResourceMetaList()) {
                 resourceMeta.getBeanInjector().inject(getBean(resourceMeta.getId()));
             }
