@@ -1,5 +1,6 @@
 package io.github.varvelworld.var.ioc.meta;
 
+import io.github.varvelworld.var.ioc.core.BeanContext;
 import io.github.varvelworld.var.ioc.meta.factory.AnnotationBeanResourcesMetaFactoryImpl;
 import io.github.varvelworld.var.ioc.meta.factory.AnnotationBeansMetaFactoryImpl;
 import io.github.varvelworld.var.ioc.meta.factory.BeanResourcesMetaFactory;
@@ -21,7 +22,7 @@ public class IocMeta {
         return new AnnotationBeanResourcesMetaFactoryImpl();
     }
 
-    public static BeanResourcesMeta createBeanResourcesMetaByAnnotation(Object bean) {
-        return createBeanResourcesMetaFactoryByAnnotation().createBeanResourcesMeta(bean);
+    public static BeanResourcesMeta createBeanResourcesMetaByAnnotation(BeanContext beanContext) {
+        return createBeanResourcesMetaFactoryByAnnotation().createBeanResourcesMeta(beanContext);
     }
 }

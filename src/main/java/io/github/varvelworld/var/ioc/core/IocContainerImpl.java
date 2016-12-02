@@ -11,7 +11,7 @@ import java.util.Map;
  */
 public class IocContainerImpl implements IocContainer {
 
-    final private Map<String, Object> beanMap = new HashMap<>();
+    final private Map<String, BeanContext> beanMap = new HashMap<>();
     final private BeanResourcesMetaFactory beanResourcesMetaFactory;
 
     public IocContainerImpl(BeanResourcesMetaFactory beanResourcesMetaFactory) {
@@ -26,7 +26,7 @@ public class IocContainerImpl implements IocContainer {
 
     @Override
     public void addBean(BeanMeta beanMeta) {
-        if(beanMap.putIfAbsent(beanMeta.getId(), beanMeta.createBean()) != null) {
+        if(beanMap.putIfAbsent(beanMeta.getId(), new BeanContext(beanMeta, beanMeta.createBean())) != null) {
             throw new RuntimeException("duplication id");
         }
 
@@ -34,16 +34,16 @@ public class IocContainerImpl implements IocContainer {
 
     @Override
     public void injectBeans() {
-        for(Map.Entry<String, Object> entry : beanMap.entrySet()) {
+        for(Map.Entry<String, BeanContext> entry : beanMap.entrySet()) {
             BeanResourcesMeta beanResourcesMeta = beanResourcesMetaFactory.createBeanResourcesMeta(entry.getValue());
             for (ResourceMeta resourceMeta : beanResourcesMeta.getResourceMetaList()) {
-                resourceMeta.getBeanInjector().inject(beanMap.get(resourceMeta.getId()));
+                resourceMeta.getBeanInjector().inject(getBean(resourceMeta.getId()));
             }
         }
     }
 
     @Override
     public Object getBean(String id) {
-        return beanMap.get(id);
+        return beanMap.get(id).getBean();
     }
 }
