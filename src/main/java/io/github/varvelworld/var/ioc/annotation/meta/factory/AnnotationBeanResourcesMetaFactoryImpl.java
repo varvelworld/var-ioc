@@ -1,5 +1,6 @@
-package io.github.varvelworld.var.ioc.annotation;
+package io.github.varvelworld.var.ioc.annotation.meta.factory;
 
+import io.github.varvelworld.var.ioc.annotation.Resource;
 import io.github.varvelworld.var.ioc.core.BeanContext;
 import io.github.varvelworld.var.ioc.meta.BeanResourcesMeta;
 import io.github.varvelworld.var.ioc.meta.factory.BeanResourcesMetaFactory;

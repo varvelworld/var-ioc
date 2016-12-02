@@ -1,4 +1,4 @@
-package io.github.varvelworld.var.ioc.dsl;
+package io.github.varvelworld.var.ioc.dsl.meta.factory;
 
 import io.github.varvelworld.var.ioc.core.BeanInjector;
 import io.github.varvelworld.var.ioc.meta.ResourceMeta;

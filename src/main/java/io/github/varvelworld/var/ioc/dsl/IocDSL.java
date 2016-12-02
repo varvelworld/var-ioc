@@ -1,6 +1,10 @@
 package io.github.varvelworld.var.ioc.dsl;
 
 import io.github.varvelworld.var.ioc.core.BeanFactory;
+import io.github.varvelworld.var.ioc.dsl.meta.factory.DSLBeanMetaFactoryImpl;
+import io.github.varvelworld.var.ioc.dsl.meta.factory.DSLBeanResourcesMetaFactoryImpl;
+import io.github.varvelworld.var.ioc.dsl.meta.factory.DSLBeansMetaFactoryImpl;
+import io.github.varvelworld.var.ioc.dsl.meta.factory.DSLResourceMetaFactory;
 import io.github.varvelworld.var.ioc.meta.factory.BeanMetaFactory;
 import io.github.varvelworld.var.ioc.meta.factory.BeanResourcesMetaFactory;
 import io.github.varvelworld.var.ioc.meta.factory.BeansMetaFactory;

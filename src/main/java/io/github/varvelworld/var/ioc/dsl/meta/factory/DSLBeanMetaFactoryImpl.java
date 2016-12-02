@@ -1,4 +1,4 @@
-package io.github.varvelworld.var.ioc.dsl;
+package io.github.varvelworld.var.ioc.dsl.meta.factory;
 
 import io.github.varvelworld.var.ioc.core.BeanFactory;
 import io.github.varvelworld.var.ioc.core.BeanFactoryByClassImpl;
