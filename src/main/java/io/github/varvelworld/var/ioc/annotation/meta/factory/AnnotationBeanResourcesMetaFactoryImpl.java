@@ -1,7 +1,6 @@
 package io.github.varvelworld.var.ioc.annotation.meta.factory;
 
 import io.github.varvelworld.var.ioc.annotation.Resource;
-import io.github.varvelworld.var.ioc.core.BeanContext;
 import io.github.varvelworld.var.ioc.meta.BeanResourcesMeta;
 import io.github.varvelworld.var.ioc.meta.factory.BeanResourcesMetaFactory;
 import io.github.varvelworld.var.ioc.meta.factory.ResourceMetaFactory;
@@ -16,9 +15,8 @@ import java.util.stream.Collectors;
  */
 public class AnnotationBeanResourcesMetaFactoryImpl implements BeanResourcesMetaFactory {
     @Override
-    public BeanResourcesMeta beanResourcesMeta(BeanContext beanContext) {
+    public BeanResourcesMeta beanResourcesMeta(Object bean) {
         List<ResourceMetaFactory> resourceMetaFactoryList = new ArrayList<>();
-        final Object bean = beanContext.getBean();
         for(Field field : bean.getClass().getDeclaredFields()) {
             Resource annotation = field.getAnnotation(Resource.class);
             if(annotation == null) {

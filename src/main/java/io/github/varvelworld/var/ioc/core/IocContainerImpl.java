@@ -2,8 +2,11 @@ package io.github.varvelworld.var.ioc.core;
 
 import io.github.varvelworld.var.ioc.meta.*;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.function.Supplier;
 
 /**
  * Ioc容器接口实现
@@ -11,7 +14,8 @@ import java.util.Map;
  */
 public class IocContainerImpl implements IocContainer {
 
-    final private Map<String, BeanContext> beanMap = new HashMap<>();
+    final private Map<String, BeanFactory> beanMap = new HashMap<>();
+    final private List<BeanFactory> notInstanceSingletonBeanList = new ArrayList<>();
 
     @Override
     public void loadMeta(BeansMeta beansMeta) {
@@ -20,28 +24,24 @@ public class IocContainerImpl implements IocContainer {
 
     @Override
     public void loadMeta(BeanMeta beanMeta) {
-        if(beanMap.putIfAbsent(beanMeta.getId(), new BeanContext(beanMeta, beanMeta.createBean())) != null) {
+        BeanFactory beanFactory = new BeanFactoryWithInjectImpl(beanMeta.beanFactory()
+                , beanMeta.beanResourcesMetaFactory(), this);
+        if(beanMap.putIfAbsent(beanMeta.getId(), beanFactory)
+                != null) {
             throw new RuntimeException("duplication id");
         }
-
+        notInstanceSingletonBeanList.add(beanFactory);
     }
 
     @Override
     public void refreshMeta() {
-        for(Map.Entry<String, BeanContext> entry : beanMap.entrySet()) {
-            BeanContext beanContext = entry.getValue();
-            Object bean = beanContext.getBean();
-            BeanMeta beanMeta = beanContext.getBeanMeta();
-            BeanResourcesMeta beanResourcesMeta = beanMeta.beanResourcesMeta(beanContext);
-            for (ResourceMeta resourceMeta : beanResourcesMeta.getResourceMetaList()) {
-                resourceMeta.getBeanInjector().inject(bean, getBean(resourceMeta.getId()));
-            }
-        }
+        /** 实例化单例bean **/
+        notInstanceSingletonBeanList.forEach(BeanFactory::bean);
     }
 
     @Override
     public Object getBean(String id) {
-        return beanMap.get(id).getBean();
+        return beanMap.get(id).bean();
     }
 
     @SuppressWarnings("unchecked")

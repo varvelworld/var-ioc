@@ -1,6 +1,5 @@
 package io.github.varvelworld.var.ioc.dsl.meta.factory;
 
-import io.github.varvelworld.var.ioc.core.BeanContext;
 import io.github.varvelworld.var.ioc.meta.BeanResourcesMeta;
 import io.github.varvelworld.var.ioc.meta.factory.BeanResourcesMetaFactory;
 import io.github.varvelworld.var.ioc.meta.factory.ResourceMetaFactory;
@@ -19,7 +18,7 @@ public class DSLBeanResourcesMetaFactoryImpl implements BeanResourcesMetaFactory
     }
 
     @Override
-    public BeanResourcesMeta beanResourcesMeta(BeanContext beanContext) {
+    public BeanResourcesMeta beanResourcesMeta(Object bean) {
         return new BeanResourcesMeta(resourceMetaFactoryList.stream()
                 .map(ResourceMetaFactory::resourceMeta)
                 .collect(Collectors.toList()));

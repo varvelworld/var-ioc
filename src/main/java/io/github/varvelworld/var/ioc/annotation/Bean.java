@@ -1,5 +1,7 @@
 package io.github.varvelworld.var.ioc.annotation;
 
+import io.github.varvelworld.var.ioc.meta.BeanScope;
+
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -16,4 +18,10 @@ public @interface Bean {
      * @return
      */
     String value() default "";
+
+    /**
+     * bean 作用范围
+     * @return
+     */
+    BeanScope socpe() default BeanScope.SINGLETON;
 }

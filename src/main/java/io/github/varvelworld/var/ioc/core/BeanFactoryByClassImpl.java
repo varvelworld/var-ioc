@@ -12,7 +12,7 @@ public class BeanFactoryByClassImpl implements BeanFactory {
     }
 
     @Override
-    public Object createBean() {
+    public Object bean() {
         try {
             return clazz.newInstance();
         } catch (InstantiationException e) {

@@ -1,6 +1,5 @@
 package io.github.varvelworld.var.ioc.meta.factory;
 
-import io.github.varvelworld.var.ioc.core.BeanContext;
 import io.github.varvelworld.var.ioc.meta.BeanResourcesMeta;
 
 /**
@@ -10,5 +9,5 @@ public interface BeanResourcesMetaFactory {
 
     BeanResourcesMetaFactory EMPTY = beanContext -> BeanResourcesMeta.EMPTY;
 
-    BeanResourcesMeta beanResourcesMeta(BeanContext beanContext);
+    BeanResourcesMeta beanResourcesMeta(Object bean);
 }
