@@ -17,7 +17,7 @@ public class AnnotationIocTest extends AbstractIocContainerTest {
 
     @Override
     protected void loadAndRefreshMeta(IocContainer iocContainer) {
-        iocContainer.loadMeta(IocAnnotation.beansMetaByAnnotation(TestBeans.class));
+        iocContainer.loadMeta(IocAnnotation.beans(TestBeans.class).beansMeta());
         iocContainer.refreshMeta();
     }
 }
