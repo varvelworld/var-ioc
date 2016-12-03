@@ -11,12 +11,10 @@ import java.lang.reflect.Field;
  */
 public class DSLResourceMetaFactory implements ResourceMetaFactory {
 
-    final private String id;
-    final private BeanInjector beanInjector ;
+    final private ResourceMeta resourceMeta;
 
     public DSLResourceMetaFactory(String id, String propertyName) {
-        this.id = id;
-        this.beanInjector = (bean, injectBean) -> {
+        BeanInjector beanInjector = (bean, injectBean) -> {
             try {
                 Field field = bean.getClass().getDeclaredField(propertyName);
                 field.setAccessible(true);
@@ -26,10 +24,11 @@ public class DSLResourceMetaFactory implements ResourceMetaFactory {
                 throw new RuntimeException(e);
             }
         };
+        this.resourceMeta = new ResourceMeta(id, beanInjector);
     }
 
     @Override
     public ResourceMeta resourceMeta() {
-        return new ResourceMeta(id, beanInjector);
+        return resourceMeta;
     }
 }

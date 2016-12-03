@@ -14,27 +14,18 @@ import java.lang.reflect.Method;
  */
 public class AnnotationBeanMetaFactoryImpl implements BeanMetaFactory {
 
-    final private Bean annotation;
-    final private Object target;
-    final private Method method;
-    final private BeanFactory beanFactory;
-    final private String beanId;
-    final private BeanResourcesMetaFactory beanResourcesMetaFactory;
     final private BeanMeta beanMeta;
 
     public AnnotationBeanMetaFactoryImpl(Bean annotation, final Object target, final Method method) {
-        this.annotation = annotation;
-        this.target = target;
-        this.method = method;
-        this.beanId = annotation.value().isEmpty() ? method.getName() : annotation.value();
-        this.beanFactory = annotation.socpe().wrap(() -> {
+        String beanId = annotation.value().isEmpty() ? method.getName() : annotation.value();
+        BeanFactory beanFactory = annotation.socpe().wrap(() -> {
             try {
                 return method.invoke(target);
             } catch (IllegalAccessException | InvocationTargetException e) {
                 throw new RuntimeException(e);
             }
         });
-        this.beanResourcesMetaFactory = new AnnotationBeanResourcesMetaFactoryImpl();
+        BeanResourcesMetaFactory beanResourcesMetaFactory = new AnnotationBeanResourcesMetaFactoryImpl();
         this.beanMeta = new BeanMeta(beanId, beanFactory, beanResourcesMetaFactory, annotation.socpe());
     }
 

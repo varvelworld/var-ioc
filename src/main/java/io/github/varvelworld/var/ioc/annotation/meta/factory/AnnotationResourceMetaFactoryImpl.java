@@ -12,13 +12,10 @@ import java.lang.reflect.Field;
  */
 public class AnnotationResourceMetaFactoryImpl implements ResourceMetaFactory {
 
-    final Resource annotation;
-    final BeanInjector beanInjector ;
-    final String id;
+    private final ResourceMeta resourceMeta;
 
     public AnnotationResourceMetaFactoryImpl(Resource annotation, Field field) {
-        this.annotation = annotation;
-        this.beanInjector = (bean, injectBean) -> {
+        BeanInjector beanInjector = (bean, injectBean) -> {
             try {
                 field.setAccessible(true);
                 field.set(bean, injectBean);
@@ -27,23 +24,12 @@ public class AnnotationResourceMetaFactoryImpl implements ResourceMetaFactory {
                 throw new RuntimeException(e);
             }
         };
-        this.id = annotation.value().isEmpty() ? field.getName() : annotation.value();
+        String id = annotation.value().isEmpty() ? field.getName() : annotation.value();
+        this.resourceMeta = new ResourceMeta(id, beanInjector);
     }
 
     @Override
     public ResourceMeta resourceMeta() {
-        return new ResourceMeta(this.id, beanInjector);
-    }
-
-    public Resource getAnnotation() {
-        return annotation;
-    }
-
-    public BeanInjector getBeanInjector() {
-        return beanInjector;
-    }
-
-    public String getId() {
-        return id;
+        return resourceMeta;
     }
 }

@@ -18,10 +18,7 @@ import java.util.stream.Collectors;
  */
 public class AnnotationBeansMetaFactoryImpl implements BeansMetaFactory {
 
-    final private Beans annotation;
-    final private Class<?> clazz;
-    final private Object beansInstance;
-    final private List<BeanMetaFactory> beanMetaFactoryList;
+    final private BeansMeta beansMeta;
 
     public AnnotationBeansMetaFactoryImpl(Class<?> clazz) {
         this(clazz, clazz.getAnnotation(Beans.class));
@@ -29,18 +26,17 @@ public class AnnotationBeansMetaFactoryImpl implements BeansMetaFactory {
 
     public AnnotationBeansMetaFactoryImpl(Class<?> clazz, Beans annotation) {
         try {
-            Preconditions.check(annotation != null, "annotation != null");
-            this.annotation = annotation;
-            this.clazz = clazz;
-            this.beansInstance = clazz.newInstance();
-            this.beanMetaFactoryList = Collections.unmodifiableList(generateBeanMetaFactoryList(clazz, beansInstance));
+            this.beansMeta = new BeansMeta(generateBeanMetaFactoryList(clazz, clazz.newInstance())
+                    .stream()
+                    .map(BeanMetaFactory::beanMeta)
+                    .collect(Collectors.toList()));
         } catch (InstantiationException | IllegalAccessException e) {
             throw new RuntimeException(e);
         }
     }
 
     private static List<BeanMetaFactory> generateBeanMetaFactoryList(Class<?> clazz, Object beansInstance) {
-        List<BeanMetaFactory> list = new ArrayList<BeanMetaFactory>();
+        List<BeanMetaFactory> list = new ArrayList<>();
         for(Method method : clazz.getMethods()) {
             Bean beanAnnotation = method.getAnnotation(Bean.class);
             if(beanAnnotation != null) {
@@ -51,9 +47,6 @@ public class AnnotationBeansMetaFactoryImpl implements BeansMetaFactory {
     }
 
     public BeansMeta beansMeta() {
-        return new BeansMeta(beanMetaFactoryList
-                .stream()
-                .map(BeanMetaFactory::beanMeta)
-                .collect(Collectors.toList()));
+        return beansMeta;
     }
 }

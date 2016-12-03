@@ -11,17 +11,11 @@ import io.github.varvelworld.var.ioc.meta.factory.BeanResourcesMetaFactory;
  */
 public class DSLBeanMetaFactoryImpl implements BeanMetaFactory {
 
-    private final String id;
-    private final BeanFactory beanFactory;
-    private final BeanResourcesMetaFactory beanResourcesMetaFactory;
     final private BeanMeta beanMeta;
 
     public DSLBeanMetaFactoryImpl(String id, BeanFactory beanFactory
             , BeanResourcesMetaFactory beanResourcesMetaFactory, BeanScope scope) {
-        this.id = id;
-        this.beanResourcesMetaFactory = beanResourcesMetaFactory;
-        this.beanFactory = scope.wrap(beanFactory);
-        this.beanMeta = new BeanMeta(id, this.beanFactory, this.beanResourcesMetaFactory, scope);
+        this.beanMeta = new BeanMeta(id, scope.wrap(beanFactory), beanResourcesMetaFactory, scope);
     }
 
     @Override
