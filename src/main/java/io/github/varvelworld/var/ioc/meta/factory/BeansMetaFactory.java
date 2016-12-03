@@ -6,5 +6,5 @@ import io.github.varvelworld.var.ioc.meta.BeansMeta;
  * Created by luzhonghao on 2016/11/26.
  */
 public interface BeansMetaFactory {
-    BeansMeta createBeansMeta();
+    BeansMeta beansMeta();
 }

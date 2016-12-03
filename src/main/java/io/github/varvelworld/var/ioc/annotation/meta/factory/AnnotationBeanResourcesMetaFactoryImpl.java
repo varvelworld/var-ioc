@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
  */
 public class AnnotationBeanResourcesMetaFactoryImpl implements BeanResourcesMetaFactory {
     @Override
-    public BeanResourcesMeta createBeanResourcesMeta(BeanContext beanContext) {
+    public BeanResourcesMeta beanResourcesMeta(BeanContext beanContext) {
         List<ResourceMetaFactory> resourceMetaFactoryList = new ArrayList<>();
         final Object bean = beanContext.getBean();
         for(Field field : bean.getClass().getDeclaredFields()) {
@@ -28,7 +28,7 @@ public class AnnotationBeanResourcesMetaFactoryImpl implements BeanResourcesMeta
             resourceMetaFactoryList.add(resourceMetaFactory);
         }
         return new BeanResourcesMeta(resourceMetaFactoryList.stream()
-                .map(ResourceMetaFactory::createResourceMeta)
+                .map(ResourceMetaFactory::resourceMeta)
                 .collect(Collectors.toList()));
     }
 }

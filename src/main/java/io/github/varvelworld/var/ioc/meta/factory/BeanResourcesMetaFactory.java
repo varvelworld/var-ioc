@@ -10,5 +10,5 @@ public interface BeanResourcesMetaFactory {
 
     BeanResourcesMetaFactory EMPTY = beanContext -> BeanResourcesMeta.EMPTY;
 
-    BeanResourcesMeta createBeanResourcesMeta(BeanContext beanContext);
+    BeanResourcesMeta beanResourcesMeta(BeanContext beanContext);
 }

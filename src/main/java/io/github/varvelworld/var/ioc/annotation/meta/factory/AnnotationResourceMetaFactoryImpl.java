@@ -31,7 +31,7 @@ public class AnnotationResourceMetaFactoryImpl implements ResourceMetaFactory {
     }
 
     @Override
-    public ResourceMeta createResourceMeta() {
+    public ResourceMeta resourceMeta() {
         return new ResourceMeta(this.id, beanInjector);
     }
 

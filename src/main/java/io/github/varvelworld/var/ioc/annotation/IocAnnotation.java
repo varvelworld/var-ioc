@@ -9,6 +9,6 @@ import io.github.varvelworld.var.ioc.meta.BeansMeta;
 public class IocAnnotation {
 
     public static BeansMeta beansMetaByAnnotation(Class<?> clazz) {
-        return new AnnotationBeansMetaFactoryImpl(clazz).createBeansMeta();
+        return new AnnotationBeansMetaFactoryImpl(clazz).beansMeta();
     }
 }

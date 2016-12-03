@@ -19,9 +19,9 @@ public class DSLBeanResourcesMetaFactoryImpl implements BeanResourcesMetaFactory
     }
 
     @Override
-    public BeanResourcesMeta createBeanResourcesMeta(BeanContext beanContext) {
+    public BeanResourcesMeta beanResourcesMeta(BeanContext beanContext) {
         return new BeanResourcesMeta(resourceMetaFactoryList.stream()
-                .map(ResourceMetaFactory::createResourceMeta)
+                .map(ResourceMetaFactory::resourceMeta)
                 .collect(Collectors.toList()));
     }
 }

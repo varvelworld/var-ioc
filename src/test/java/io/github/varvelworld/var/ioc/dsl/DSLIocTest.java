@@ -23,7 +23,7 @@ public class DSLIocTest {
                 , bean("hi", HiService.class, resources(
                         resource("fun2", "fun")
                 ))
-        ).createBeansMeta());
+        ).beansMeta());
         HelloPOJO helloPOJO = (HelloPOJO) iocContainer.getBean("fun");
         HelloPOJO helloPOJO2 = (HelloPOJO) iocContainer.getBean("fun2");
         Assert.assertEquals("hello world", helloPOJO.getName());
@@ -39,7 +39,7 @@ public class DSLIocTest {
                 , bean("hi", HiService.class, resources(
                         resource("fun2", "fun")
                 ))
-        ).createBeansMeta());
+        ).beansMeta());
         iocContainer.refreshMeta();
         HiService hiService = (HiService) iocContainer.getBean("hi");
         Assert.assertEquals("hello world2", hiService.hello());

@@ -28,7 +28,7 @@ public class BeanMeta implements BeanFactory, BeanResourcesMetaFactory {
     }
 
     @Override
-    public BeanResourcesMeta createBeanResourcesMeta(BeanContext beanContext) {
-        return beanResourcesMetaFactory.createBeanResourcesMeta(beanContext);
+    public BeanResourcesMeta beanResourcesMeta(BeanContext beanContext) {
+        return beanResourcesMetaFactory.beanResourcesMeta(beanContext);
     }
 }

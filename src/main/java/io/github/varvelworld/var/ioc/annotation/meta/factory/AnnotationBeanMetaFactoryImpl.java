@@ -33,7 +33,7 @@ public class AnnotationBeanMetaFactoryImpl implements BeanMetaFactory {
         this.beanId = annotation.value().isEmpty() ? method.getName() : annotation.value();
     }
 
-    public BeanMeta createBeanMeta() {
+    public BeanMeta beanMeta() {
         return new BeanMeta(beanId, beanFactory, new AnnotationBeanResourcesMetaFactoryImpl());
     }
 }

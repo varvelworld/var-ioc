@@ -19,10 +19,10 @@ public class DSLBeansMetaFactoryImpl implements BeansMetaFactory {
     }
 
     @Override
-    public BeansMeta createBeansMeta() {
+    public BeansMeta beansMeta() {
         return new BeansMeta(beanMetaFactoryList
                 .stream()
-                .map(BeanMetaFactory::createBeanMeta)
+                .map(BeanMetaFactory::beanMeta)
                 .collect(Collectors.toList()));
     }
 }

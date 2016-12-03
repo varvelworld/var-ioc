@@ -28,7 +28,7 @@ public class DSLBeanMetaFactoryImpl implements BeanMetaFactory {
     }
 
     @Override
-    public BeanMeta createBeanMeta() {
+    public BeanMeta beanMeta() {
         return new BeanMeta(id, beanFactory, beanResourcesMetaFactory);
     }
 }

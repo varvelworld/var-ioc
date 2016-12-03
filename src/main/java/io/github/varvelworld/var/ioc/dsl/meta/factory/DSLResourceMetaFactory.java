@@ -29,7 +29,7 @@ public class DSLResourceMetaFactory implements ResourceMetaFactory {
     }
 
     @Override
-    public ResourceMeta createResourceMeta() {
+    public ResourceMeta resourceMeta() {
         return new ResourceMeta(id, beanInjector);
     }
 }
