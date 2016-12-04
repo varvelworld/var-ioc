@@ -81,4 +81,12 @@ abstract public class AbstractIocContainerTest {
         Assert.assertNotNull(hi2.getFun3());
         Assert.assertNotSame(hi1.getFun3(), hi2.getFun3());
     }
+
+    @Test
+    public void resourceByConstructor() {
+        HiService hi3 = iocContainer.getBean("hi3", HiService.class);
+        Assert.assertNotNull(hi3);
+        Assert.assertNotNull(hi3.getFun4());
+        Assert.assertEquals("hello world4", hi3.getFun4().getName());
+    }
 }

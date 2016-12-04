@@ -11,16 +11,16 @@ import java.util.stream.Collectors;
  * Created by luzhonghao on 2016/12/3.
  */
 public class DSLBeanResourcesMetaFactoryImpl implements BeanResourcesMetaFactory {
-    final private List<ResourceMetaFactory> resourceMetaFactoryList;
+    final private BeanResourcesMeta beanResourcesMeta;
 
     public DSLBeanResourcesMetaFactoryImpl(List<ResourceMetaFactory> resourceMetaFactoryList) {
-        this.resourceMetaFactoryList = resourceMetaFactoryList;
+        this.beanResourcesMeta = new BeanResourcesMeta(resourceMetaFactoryList.stream()
+                .map(ResourceMetaFactory::resourceMeta)
+                .collect(Collectors.toList()));
     }
 
     @Override
     public BeanResourcesMeta beanResourcesMeta(Object bean) {
-        return new BeanResourcesMeta(resourceMetaFactoryList.stream()
-                .map(ResourceMetaFactory::resourceMeta)
-                .collect(Collectors.toList()));
+        return beanResourcesMeta;
     }
 }

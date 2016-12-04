@@ -23,12 +23,4 @@ public class AnnotationIocTest extends AbstractIocContainerTest {
         iocContainer.loadMeta(IocAnnotation.beans(TestBeans.class).beansMeta());
         iocContainer.refreshMeta();
     }
-
-    @Test
-    public void resourceByParam() {
-        HiService hi3 = iocContainer.getBean("hi3", HiService.class);
-        Assert.assertNotNull(hi3);
-        Assert.assertNotNull(hi3.getFun4());
-        Assert.assertEquals("hello world4", hi3.getFun4().getName());
-    }
 }
