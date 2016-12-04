@@ -1,5 +1,6 @@
 package io.github.varvelworld.var.ioc.dsl;
 
+import io.github.varvelworld.var.ioc.core.BeanFactoryByClassImpl;
 import io.github.varvelworld.var.ioc.dsl.meta.factory.DSLBeanMetaFactoryImpl;
 import io.github.varvelworld.var.ioc.dsl.meta.factory.DSLBeanResourcesMetaFactoryImpl;
 import io.github.varvelworld.var.ioc.dsl.meta.factory.DSLBeansMetaFactoryImpl;
@@ -24,7 +25,7 @@ public class IocDSL {
 
     public static BeanMetaFactory bean(String id, Supplier<?> beanSupplier
             , BeanResourcesMetaFactory beanResourcesMetaFactory, BeanScope beanScope) {
-        return new DSLBeanMetaFactoryImpl(id, beanSupplier, beanResourcesMetaFactory, beanScope);
+        return new DSLBeanMetaFactoryImpl(id, iocContainer -> beanSupplier.get(), beanResourcesMetaFactory, beanScope);
     }
 
     public static BeanMetaFactory bean(String id, Supplier<?> beanSupplier
@@ -43,7 +44,7 @@ public class IocDSL {
 
     public static BeanMetaFactory bean(String id, Class<?> clazz, BeanResourcesMetaFactory beanResourcesMetaFactory
             , BeanScope beanScope) {
-        return bean(id, new BeanSupplierByClass<>(clazz), beanResourcesMetaFactory, beanScope);
+        return new DSLBeanMetaFactoryImpl(id, new BeanFactoryByClassImpl(clazz), beanResourcesMetaFactory, beanScope);
     }
 
     public static BeanMetaFactory bean(String id, Class<?> clazz, BeanResourcesMetaFactory beanResourcesMetaFactory) {
