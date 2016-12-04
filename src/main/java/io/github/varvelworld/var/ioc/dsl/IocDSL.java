@@ -83,11 +83,11 @@ public class IocDSL {
     }
 
 
-    public static BeanResourcesMetaFactory resources(ResourceMetaFactory... resourceMetaFactories) {
+    public static BeanResourcesMetaFactory properties(ResourceMetaFactory... resourceMetaFactories) {
         return new DSLBeanResourcesMetaFactoryImpl(Arrays.asList(resourceMetaFactories));
     }
 
-    public static ResourceMetaFactory resource(String id, String propertyName) {
+    public static ResourceMetaFactory property(String id, String propertyName) {
         return new DSLResourceMetaFactory(id, propertyName);
     }
 }
