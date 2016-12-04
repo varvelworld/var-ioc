@@ -37,10 +37,10 @@ public class AnnotationBeansMetaFactoryImpl implements BeansMetaFactory {
 
     private static List<BeanMetaFactory> generateBeanMetaFactoryList(Class<?> clazz, Object beansInstance) {
         List<BeanMetaFactory> list = new ArrayList<>();
-        for(Method method : clazz.getMethods()) {
+        for(Method method : clazz.getDeclaredMethods()) {
             Bean beanAnnotation = method.getAnnotation(Bean.class);
             if(beanAnnotation != null) {
-                list.add(new AnnotationBeanMetaFactoryImpl(beanAnnotation, beansInstance, method));
+                list.add(new AnnotationBeanMetaFactoryImpl(beansInstance, method, beanAnnotation));
             }
         }
         return list;

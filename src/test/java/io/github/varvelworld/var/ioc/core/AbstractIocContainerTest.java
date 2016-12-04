@@ -18,7 +18,7 @@ abstract public class AbstractIocContainerTest {
 
     abstract protected void loadAndRefreshMeta(IocContainer iocContainer);
 
-    private IocContainer iocContainer;
+    protected IocContainer iocContainer;
 
     @Before
     public void before() {

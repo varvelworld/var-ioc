@@ -6,6 +6,9 @@ package io.github.varvelworld.var.ioc;
 public class HelloPOJO {
     private String name;
 
+    public HelloPOJO() {
+    }
+
     public HelloPOJO(String name) {
         this.name = name;
     }

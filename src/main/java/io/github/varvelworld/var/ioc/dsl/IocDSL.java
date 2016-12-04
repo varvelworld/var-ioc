@@ -1,7 +1,6 @@
 package io.github.varvelworld.var.ioc.dsl;
 
-import io.github.varvelworld.var.ioc.core.BeanFactory;
-import io.github.varvelworld.var.ioc.core.BeanFactoryByClassImpl;
+import io.github.varvelworld.var.ioc.core.BeanSupplierByClassImpl;
 import io.github.varvelworld.var.ioc.dsl.meta.factory.DSLBeanMetaFactoryImpl;
 import io.github.varvelworld.var.ioc.dsl.meta.factory.DSLBeanResourcesMetaFactoryImpl;
 import io.github.varvelworld.var.ioc.dsl.meta.factory.DSLBeansMetaFactoryImpl;
@@ -13,6 +12,7 @@ import io.github.varvelworld.var.ioc.meta.factory.BeansMetaFactory;
 import io.github.varvelworld.var.ioc.meta.factory.ResourceMetaFactory;
 
 import java.util.Arrays;
+import java.util.function.Supplier;
 
 /**
  * Created by luzhonghao on 2016/12/3.
@@ -23,28 +23,28 @@ public class IocDSL {
         return new DSLBeansMetaFactoryImpl(Arrays.asList(beanMetaFactories));
     }
 
-    public static BeanMetaFactory bean(String id, BeanFactory beanFactory
+    public static BeanMetaFactory bean(String id, Supplier<?> beanSupplier
             , BeanResourcesMetaFactory beanResourcesMetaFactory, BeanScope beanScope) {
-        return new DSLBeanMetaFactoryImpl(id, beanFactory, beanResourcesMetaFactory, beanScope);
+        return new DSLBeanMetaFactoryImpl(id, beanSupplier, beanResourcesMetaFactory, beanScope);
     }
 
-    public static BeanMetaFactory bean(String id, BeanFactory beanFactory
+    public static BeanMetaFactory bean(String id, Supplier<?> beanSupplier
             , BeanResourcesMetaFactory beanResourcesMetaFactory) {
-        return bean(id, beanFactory, beanResourcesMetaFactory, BeanScope.SINGLETON);
+        return bean(id, beanSupplier, beanResourcesMetaFactory, BeanScope.SINGLETON);
     }
 
-    public static BeanMetaFactory bean(String id, BeanFactory beanFactory
+    public static BeanMetaFactory bean(String id, Supplier<?> beanSupplier
             , BeanScope beanScope) {
-        return bean(id, beanFactory, BeanResourcesMetaFactory.EMPTY, beanScope);
+        return bean(id, beanSupplier, BeanResourcesMetaFactory.EMPTY, beanScope);
     }
 
-    public static BeanMetaFactory bean(String id, BeanFactory beanFactory) {
-        return bean(id, beanFactory, BeanResourcesMetaFactory.EMPTY);
+    public static BeanMetaFactory bean(String id, Supplier<?> beanSupplier) {
+        return bean(id, beanSupplier, BeanResourcesMetaFactory.EMPTY);
     }
 
     public static BeanMetaFactory bean(String id, Class<?> clazz, BeanResourcesMetaFactory beanResourcesMetaFactory
             , BeanScope beanScope) {
-        return bean(id, new BeanFactoryByClassImpl(clazz), beanResourcesMetaFactory, beanScope);
+        return bean(id, new BeanSupplierByClassImpl<>(clazz), beanResourcesMetaFactory, beanScope);
     }
 
     public static BeanMetaFactory bean(String id, Class<?> clazz, BeanResourcesMetaFactory beanResourcesMetaFactory) {

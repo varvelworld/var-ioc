@@ -24,8 +24,7 @@ public class IocContainerImpl implements IocContainer {
 
     @Override
     public void loadMeta(BeanMeta beanMeta) {
-        BeanFactory beanFactory = new BeanFactoryWithInjectImpl(beanMeta.beanFactory()
-                , beanMeta.beanResourcesMetaFactory(), this);
+        BeanFactory beanFactory = beanMeta.beanFactory();
         if(beanMap.putIfAbsent(beanMeta.getId(), beanFactory)
                 != null) {
             throw new RuntimeException("duplication id");
@@ -36,12 +35,12 @@ public class IocContainerImpl implements IocContainer {
     @Override
     public void refreshMeta() {
         /** 实例化单例bean **/
-        notInstanceSingletonBeanList.forEach(BeanFactory::bean);
+        notInstanceSingletonBeanList.stream().forEach(beanFactory -> beanFactory.bean(this));
     }
 
     @Override
     public Object getBean(String id) {
-        return beanMap.get(id).bean();
+        return beanMap.get(id).bean(this);
     }
 
     @SuppressWarnings("unchecked")

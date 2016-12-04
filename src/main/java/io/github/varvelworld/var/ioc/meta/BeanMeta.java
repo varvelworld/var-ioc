@@ -1,6 +1,7 @@
 package io.github.varvelworld.var.ioc.meta;
 
 import io.github.varvelworld.var.ioc.core.BeanFactory;
+import io.github.varvelworld.var.ioc.core.BeanFactoryWithInjectImpl;
 import io.github.varvelworld.var.ioc.meta.factory.BeanResourcesMetaFactory;
 
 /**
@@ -9,12 +10,10 @@ import io.github.varvelworld.var.ioc.meta.factory.BeanResourcesMetaFactory;
 public class BeanMeta {
     final private String id;
     final private BeanFactory beanFactory;
-    final private BeanResourcesMetaFactory beanResourcesMetaFactory;
 
-    public BeanMeta(String id, BeanFactory beanFactory, BeanResourcesMetaFactory beanResourcesMetaFactory, BeanScope scope) {
+    public BeanMeta(String id, BeanFactory beanFactory, BeanResourcesMetaFactory beanResourcesMetaFactory) {
         this.id = id;
-        this.beanFactory = beanFactory;
-        this.beanResourcesMetaFactory = beanResourcesMetaFactory;
+        this.beanFactory = new BeanFactoryWithInjectImpl(beanFactory, beanResourcesMetaFactory);
     }
 
     public String getId() {
@@ -23,9 +22,5 @@ public class BeanMeta {
 
     public BeanFactory beanFactory() {
         return beanFactory;
-    }
-
-    public BeanResourcesMetaFactory beanResourcesMetaFactory() {
-        return beanResourcesMetaFactory;
     }
 }

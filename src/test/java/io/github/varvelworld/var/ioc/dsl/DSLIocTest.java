@@ -2,9 +2,9 @@ package io.github.varvelworld.var.ioc.dsl;
 
 import io.github.varvelworld.var.ioc.HelloPOJO;
 import io.github.varvelworld.var.ioc.HiService;
+import io.github.varvelworld.var.ioc.core.AbstractIocContainerTest;
 import io.github.varvelworld.var.ioc.core.IocContainer;
 import io.github.varvelworld.var.ioc.core.IocContainerImpl;
-import io.github.varvelworld.var.ioc.core.AbstractIocContainerTest;
 import io.github.varvelworld.var.ioc.meta.BeanScope;
 
 import static io.github.varvelworld.var.ioc.dsl.IocDSL.*;

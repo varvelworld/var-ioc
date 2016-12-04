@@ -16,7 +16,7 @@ public class BeanResourcesMeta {
         this.resourceMetaList = resourceMetaList;
     }
 
-    public List<ResourceMeta> getResourceMetaList() {
+    public List<ResourceMeta> resourceMetaList() {
         return resourceMetaList;
     }
 }

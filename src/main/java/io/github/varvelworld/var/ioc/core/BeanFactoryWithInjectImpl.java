@@ -10,19 +10,16 @@ public class BeanFactoryWithInjectImpl implements BeanFactory {
 
     private final BeanFactory beanFactory;
     private final BeanResourcesMetaFactory beanResourcesMetaFactory;
-    private final IocContainer iocContainer;
 
-    public BeanFactoryWithInjectImpl(BeanFactory beanFactory, BeanResourcesMetaFactory beanResourcesMetaFactory
-            , IocContainer iocContainer) {
+    public BeanFactoryWithInjectImpl(BeanFactory beanFactory, BeanResourcesMetaFactory beanResourcesMetaFactory) {
         this.beanFactory = beanFactory;
         this.beanResourcesMetaFactory = beanResourcesMetaFactory;
-        this.iocContainer = iocContainer;
     }
 
     @Override
-    public Object bean() {
-        Object bean = beanFactory.bean();
-        for (ResourceMeta resourceMeta : beanResourcesMetaFactory.beanResourcesMeta(bean).getResourceMetaList()) {
+    public Object bean(IocContainer iocContainer) {
+        Object bean = beanFactory.bean(iocContainer);
+        for (ResourceMeta resourceMeta : beanResourcesMetaFactory.beanResourcesMeta(bean).resourceMetaList()) {
             resourceMeta.getBeanInjector().inject(bean, iocContainer.getBean(resourceMeta.getId()));
         }
         return bean;
