@@ -1,5 +1,6 @@
 package io.github.varvelworld.var.ioc.dsl.meta.factory;
 
+import io.github.varvelworld.var.ioc.core.BeanFactoryWithInjectImpl;
 import io.github.varvelworld.var.ioc.meta.BeanMeta;
 import io.github.varvelworld.var.ioc.meta.BeanScope;
 import io.github.varvelworld.var.ioc.meta.factory.BeanMetaFactory;
@@ -16,7 +17,9 @@ public class DSLBeanMetaFactoryImpl implements BeanMetaFactory {
 
     public DSLBeanMetaFactoryImpl(String id, Supplier<?> beanSupplier
             , BeanResourcesMetaFactory beanResourcesMetaFactory, BeanScope scope) {
-        this.beanMeta = new BeanMeta(id, scope.wrap(iocContainer -> beanSupplier.get()), beanResourcesMetaFactory);
+        this.beanMeta = new BeanMeta(id, new BeanFactoryWithInjectImpl(
+                scope.wrap(iocContainer -> beanSupplier.get())
+                , beanResourcesMetaFactory));
     }
 
     @Override

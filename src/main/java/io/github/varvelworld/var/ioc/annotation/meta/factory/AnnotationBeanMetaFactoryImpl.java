@@ -2,6 +2,7 @@ package io.github.varvelworld.var.ioc.annotation.meta.factory;
 
 import io.github.varvelworld.var.ioc.annotation.Bean;
 import io.github.varvelworld.var.ioc.core.BeanFactory;
+import io.github.varvelworld.var.ioc.core.BeanFactoryWithInjectImpl;
 import io.github.varvelworld.var.ioc.core.BeanFactoryWithNoParameterMethodImpl;
 import io.github.varvelworld.var.ioc.core.BeanFactoryWithParametersMethodImpl;
 import io.github.varvelworld.var.ioc.meta.BeanMeta;
@@ -24,15 +25,15 @@ public class AnnotationBeanMetaFactoryImpl implements BeanMetaFactory {
     }
 
     public AnnotationBeanMetaFactoryImpl(final Object beansInstance, final Method method, Bean annotation) {
-        String beanId = annotation.value().isEmpty() ? method.getName() : annotation.value();
-        BeanFactory beanFactory = annotation.socpe().wrap(method.getParameterCount() == 0
-                ? new BeanFactoryWithNoParameterMethodImpl(beansInstance, method)
-                : new BeanFactoryWithParametersMethodImpl(beansInstance, method
-                , new AnnotationParamResourcesMetaFactoryImpl(method.getParameters()).paramResourcesMeta()
-                .paramResourceMetaList().stream().map(ParamResourceMeta::beanGetter)
-                .collect(Collectors.toList())));
-        BeanResourcesMetaFactory beanResourcesMetaFactory = new AnnotationBeanResourcesMetaFactoryImpl();
-        this.beanMeta = new BeanMeta(beanId, beanFactory, beanResourcesMetaFactory);
+        this.beanMeta = new BeanMeta(annotation.value().isEmpty() ? method.getName() : annotation.value()
+                , new BeanFactoryWithInjectImpl(
+                    annotation.socpe().wrap(method.getParameterCount() == 0
+                    ? new BeanFactoryWithNoParameterMethodImpl(beansInstance, method)
+                    : new BeanFactoryWithParametersMethodImpl(beansInstance, method
+                    , new AnnotationParamResourcesMetaFactoryImpl(method.getParameters()).paramResourcesMeta()
+                    .paramResourceMetaList().stream().map(ParamResourceMeta::beanGetter)
+                    .collect(Collectors.toList())))
+                , new AnnotationBeanResourcesMetaFactoryImpl()));
     }
 
     public BeanMeta beanMeta() {

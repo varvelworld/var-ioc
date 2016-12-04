@@ -24,7 +24,8 @@ public class DSLIocTest extends AbstractIocContainerTest {
                 , bean("fun2", () -> new HelloPOJO("hello world2"))
                 , bean("hi", HiService.class, resources(resource("fun2", "fun")))
                 , bean("fun3", () -> new HelloPOJO("hello world3"), BeanScope.PROTOTYPE)
-                , bean("hi2", HiService.class, resources(resource("fun2", "fun"), resource("fun3", "fun3")), BeanScope.PROTOTYPE)
+                , bean("hi2", HiService.class, resources(resource("fun2", "fun"), resource("fun3", "fun3"))
+                        , BeanScope.PROTOTYPE)
         ).beansMeta());
         iocContainer.refreshMeta();
     }

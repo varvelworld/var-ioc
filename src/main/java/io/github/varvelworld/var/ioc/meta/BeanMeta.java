@@ -11,9 +11,9 @@ public class BeanMeta {
     final private String id;
     final private BeanFactory beanFactory;
 
-    public BeanMeta(String id, BeanFactory beanFactory, BeanResourcesMetaFactory beanResourcesMetaFactory) {
+    public BeanMeta(String id, BeanFactory beanFactory) {
         this.id = id;
-        this.beanFactory = new BeanFactoryWithInjectImpl(beanFactory, beanResourcesMetaFactory);
+        this.beanFactory = beanFactory;
     }
 
     public String getId() {

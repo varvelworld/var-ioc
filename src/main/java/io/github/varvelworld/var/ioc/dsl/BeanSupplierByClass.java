@@ -1,15 +1,15 @@
-package io.github.varvelworld.var.ioc.core;
+package io.github.varvelworld.var.ioc.dsl;
 
 import java.util.function.Supplier;
 
 /**
  * Created by luzhonghao on 2016/12/3.
  */
-public class BeanSupplierByClassImpl<T> implements Supplier<T> {
+public class BeanSupplierByClass<T> implements Supplier<T> {
 
     final Class<T> clazz;
 
-    public BeanSupplierByClassImpl(Class<T> clazz) {
+    public BeanSupplierByClass(Class<T> clazz) {
         this.clazz = clazz;
     }
 
