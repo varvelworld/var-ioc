@@ -23,6 +23,7 @@ public class DSLBeanResourcesMetaFactoryImpl implements BeanResourcesMetaFactory
 
     @Override
     public Function<Object, BeanResourcesMeta> beanResourcesMeta() {
-        return (bean) -> beanResourcesMeta.get();
+        BeanResourcesMeta beanResourcesMeta2 = beanResourcesMeta.get();
+        return (bean) -> beanResourcesMeta2;
     }
 }
