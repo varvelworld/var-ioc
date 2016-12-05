@@ -9,6 +9,7 @@ import io.github.varvelworld.var.ioc.core.meta.factory.BeansMetaFactory;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
 /**
@@ -16,21 +17,23 @@ import java.util.stream.Collectors;
  */
 public class AnnotationBeansMetaFactoryImpl implements BeansMetaFactory {
 
-    final private BeansMeta beansMeta;
+    final private Supplier<BeansMeta> beansMeta;
 
     public AnnotationBeansMetaFactoryImpl(Class<?> clazz) {
         this(clazz, clazz.getAnnotation(Beans.class));
     }
 
     public AnnotationBeansMetaFactoryImpl(Class<?> clazz, Beans annotation) {
-        try {
-            this.beansMeta = new BeansMeta(generateBeanMetaFactoryList(clazz, clazz.newInstance())
-                    .stream()
-                    .map(BeanMetaFactory::beanMeta)
-                    .collect(Collectors.toList()));
-        } catch (InstantiationException | IllegalAccessException e) {
-            throw new RuntimeException(e);
-        }
+            this.beansMeta = () -> {
+                try {
+                    return new BeansMeta(generateBeanMetaFactoryList(clazz, clazz.newInstance())
+                            .stream()
+                            .map(BeanMetaFactory::beanMeta)
+                            .collect(Collectors.toList()));
+                } catch (InstantiationException | IllegalAccessException e) {
+                    throw new RuntimeException(e);
+                }
+            };
     }
 
     private static List<BeanMetaFactory> generateBeanMetaFactoryList(Class<?> clazz, Object beansInstance) {
@@ -45,6 +48,6 @@ public class AnnotationBeansMetaFactoryImpl implements BeansMetaFactory {
     }
 
     public BeansMeta beansMeta() {
-        return beansMeta;
+        return beansMeta.get();
     }
 }

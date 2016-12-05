@@ -6,6 +6,7 @@ import io.github.varvelworld.var.ioc.core.meta.factory.ParamResourcesMetaFactory
 
 import java.lang.reflect.Parameter;
 import java.util.Arrays;
+import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
 /**
@@ -13,10 +14,10 @@ import java.util.stream.Collectors;
  */
 public class AnnotationParamResourcesMetaFactoryImpl implements ParamResourcesMetaFactory {
 
-    private final ParamResourcesMeta paramResourcesMeta;
+    private final Supplier<ParamResourcesMeta> paramResourcesMeta;
 
     public AnnotationParamResourcesMetaFactoryImpl(Parameter[] parameters) {
-        this.paramResourcesMeta = new ParamResourcesMeta(
+        this.paramResourcesMeta = () -> new ParamResourcesMeta(
                 Arrays.asList(parameters).stream()
                         .map(AnnotationParamResourceMetaFactoryImpl::new)
                         .map(ParamResourceMetaFactory::paramResourceMeta)
@@ -26,6 +27,6 @@ public class AnnotationParamResourcesMetaFactoryImpl implements ParamResourcesMe
 
     @Override
     public ParamResourcesMeta paramResourcesMeta() {
-        return paramResourcesMeta;
+        return paramResourcesMeta.get();
     }
 }

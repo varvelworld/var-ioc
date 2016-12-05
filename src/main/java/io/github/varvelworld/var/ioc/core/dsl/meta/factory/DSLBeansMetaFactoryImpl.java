@@ -5,6 +5,7 @@ import io.github.varvelworld.var.ioc.core.meta.factory.BeanMetaFactory;
 import io.github.varvelworld.var.ioc.core.meta.factory.BeansMetaFactory;
 
 import java.util.List;
+import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
 /**
@@ -12,17 +13,17 @@ import java.util.stream.Collectors;
  */
 public class DSLBeansMetaFactoryImpl implements BeansMetaFactory {
 
-    final private List<BeanMetaFactory> beanMetaFactoryList;
+    final private Supplier<BeansMeta> beansMeta;
 
     public DSLBeansMetaFactoryImpl(List<BeanMetaFactory> beanMetaFactoryList) {
-        this.beanMetaFactoryList = beanMetaFactoryList;
+        this.beansMeta = () -> new BeansMeta(beanMetaFactoryList
+                .stream()
+                .map(BeanMetaFactory::beanMeta)
+                .collect(Collectors.toList()));
     }
 
     @Override
     public BeansMeta beansMeta() {
-        return new BeansMeta(beanMetaFactoryList
-                .stream()
-                .map(BeanMetaFactory::beanMeta)
-                .collect(Collectors.toList()));
+        return beansMeta.get();
     }
 }

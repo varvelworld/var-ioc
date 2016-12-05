@@ -11,16 +11,18 @@ import io.github.varvelworld.var.ioc.core.meta.factory.BeanResourcesMetaFactory;
 import io.github.varvelworld.var.ioc.core.meta.factory.ParamResourcesMetaFactory;
 import io.github.varvelworld.var.ioc.util.ClassUtils;
 
+import java.util.function.Supplier;
+
 /**
  * Created by luzhonghao on 2016/12/3.
  */
 public class DSLBeanMetaFactoryImpl implements BeanMetaFactory {
 
-    final private BeanMeta beanMeta;
+    final private Supplier<BeanMeta> beanMeta;
 
     public DSLBeanMetaFactoryImpl(String id, BeanFactory beanFactory
             , BeanResourcesMetaFactory beanResourcesMetaFactory, BeanScope scope) {
-        this.beanMeta = new BeanMeta(id, new BeanFactoryWithInjectImpl(
+        this.beanMeta = () -> new BeanMeta(id, new BeanFactoryWithInjectImpl(
                 scope.wrap(beanFactory)
                 , beanResourcesMetaFactory));
     }
@@ -40,6 +42,6 @@ public class DSLBeanMetaFactoryImpl implements BeanMetaFactory {
 
     @Override
     public BeanMeta beanMeta() {
-        return beanMeta;
+        return beanMeta.get();
     }
 }

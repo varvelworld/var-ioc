@@ -5,6 +5,7 @@ import io.github.varvelworld.var.ioc.core.meta.factory.ParamResourceMetaFactory;
 import io.github.varvelworld.var.ioc.core.meta.factory.ParamResourcesMetaFactory;
 
 import java.util.List;
+import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
 /**
@@ -12,10 +13,10 @@ import java.util.stream.Collectors;
  */
 public class DSLParamResourcesMetaFactoryImpl implements ParamResourcesMetaFactory {
 
-    final private ParamResourcesMeta paramResourcesMeta;
+    final private Supplier<ParamResourcesMeta> paramResourcesMeta;
 
     public DSLParamResourcesMetaFactoryImpl(List<ParamResourceMetaFactory> paramResourceMetaFactoryList) {
-        this.paramResourcesMeta = new ParamResourcesMeta(paramResourceMetaFactoryList
+        this.paramResourcesMeta = () -> new ParamResourcesMeta(paramResourceMetaFactoryList
                 .stream().map(ParamResourceMetaFactory::paramResourceMeta)
                 .collect(Collectors.toList())
         );
@@ -23,6 +24,6 @@ public class DSLParamResourcesMetaFactoryImpl implements ParamResourcesMetaFacto
 
     @Override
     public ParamResourcesMeta paramResourcesMeta() {
-        return paramResourcesMeta;
+        return paramResourcesMeta.get();
     }
 }

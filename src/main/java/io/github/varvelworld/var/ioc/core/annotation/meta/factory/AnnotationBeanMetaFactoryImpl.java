@@ -8,6 +8,7 @@ import io.github.varvelworld.var.ioc.core.meta.ParamResourceMeta;
 import io.github.varvelworld.var.ioc.core.meta.factory.BeanMetaFactory;
 
 import java.lang.reflect.Method;
+import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
 /**
@@ -15,14 +16,14 @@ import java.util.stream.Collectors;
  */
 public class AnnotationBeanMetaFactoryImpl implements BeanMetaFactory {
 
-    final private BeanMeta beanMeta;
+    final private Supplier<BeanMeta> beanMeta;
 
     public AnnotationBeanMetaFactoryImpl(final Object beansInstance, final Method method) {
         this(beansInstance, method, method.getAnnotation(Bean.class));
     }
 
     public AnnotationBeanMetaFactoryImpl(final Object beansInstance, final Method method, Bean annotation) {
-        this.beanMeta = new BeanMeta(annotation.value().isEmpty() ? method.getName() : annotation.value()
+        this.beanMeta = () -> new BeanMeta(annotation.value().isEmpty() ? method.getName() : annotation.value()
                 , new BeanFactoryWithInjectImpl(
                     annotation.socpe().wrap(
                             new BeanFactoryWithParametersMethodImpl(beansInstance
@@ -35,6 +36,6 @@ public class AnnotationBeanMetaFactoryImpl implements BeanMetaFactory {
     }
 
     public BeanMeta beanMeta() {
-        return beanMeta;
+        return beanMeta.get();
     }
 }
