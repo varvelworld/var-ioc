@@ -24,7 +24,7 @@ public class DSLBeanMetaFactoryImpl implements BeanMetaFactory {
             , BeanResourcesMetaFactory beanResourcesMetaFactory, BeanScope scope) {
         this.beanMeta = () -> new BeanMeta(id, new BeanFactoryWithInjectImpl(
                 scope.wrap(beanFactory)
-                , beanResourcesMetaFactory));
+                , beanResourcesMetaFactory.beanResourcesMeta()));
     }
 
     public DSLBeanMetaFactoryImpl(String id, Class<?> clazz, ParamResourcesMetaFactory paramResourcesMetaFactory

@@ -32,7 +32,7 @@ public class AnnotationBeanMetaFactoryImpl implements BeanMetaFactory {
                                     .paramResourcesMeta()
                     .paramResourceMetaList().stream().map(ParamResourceMeta::beanGetter)
                     .collect(Collectors.toList())))
-                , new AnnotationBeanResourcesMetaFactoryImpl()));
+                , new AnnotationBeanResourcesMetaFactoryImpl().beanResourcesMeta()));
     }
 
     public BeanMeta beanMeta() {

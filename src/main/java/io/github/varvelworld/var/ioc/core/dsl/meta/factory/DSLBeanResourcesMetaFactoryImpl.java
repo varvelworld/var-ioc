@@ -5,6 +5,7 @@ import io.github.varvelworld.var.ioc.core.meta.factory.BeanResourcesMetaFactory;
 import io.github.varvelworld.var.ioc.core.meta.factory.ResourceMetaFactory;
 
 import java.util.List;
+import java.util.function.Function;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
@@ -21,7 +22,7 @@ public class DSLBeanResourcesMetaFactoryImpl implements BeanResourcesMetaFactory
     }
 
     @Override
-    public BeanResourcesMeta beanResourcesMeta(Object bean) {
-        return beanResourcesMeta.get();
+    public Function<Object, BeanResourcesMeta> beanResourcesMeta() {
+        return (bean) -> beanResourcesMeta.get();
     }
 }
