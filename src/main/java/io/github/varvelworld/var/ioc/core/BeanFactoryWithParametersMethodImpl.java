@@ -1,8 +1,5 @@
 package io.github.varvelworld.var.ioc.core;
 
-import io.github.varvelworld.var.ioc.meta.BeanResourcesMeta;
-import io.github.varvelworld.var.ioc.meta.ParamResourcesMeta;
-
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.List;

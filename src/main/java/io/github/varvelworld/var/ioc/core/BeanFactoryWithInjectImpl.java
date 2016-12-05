@@ -1,7 +1,7 @@
 package io.github.varvelworld.var.ioc.core;
 
-import io.github.varvelworld.var.ioc.meta.ResourceMeta;
-import io.github.varvelworld.var.ioc.meta.factory.BeanResourcesMetaFactory;
+import io.github.varvelworld.var.ioc.core.meta.ResourceMeta;
+import io.github.varvelworld.var.ioc.core.meta.factory.BeanResourcesMetaFactory;
 
 /**
  * Created by luzhonghao on 2016/12/3.

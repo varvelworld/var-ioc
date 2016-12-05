@@ -1,7 +1,7 @@
 package io.github.varvelworld.var.ioc.core;
 
-import io.github.varvelworld.var.ioc.meta.BeanMeta;
-import io.github.varvelworld.var.ioc.meta.BeansMeta;
+import io.github.varvelworld.var.ioc.core.meta.BeanMeta;
+import io.github.varvelworld.var.ioc.core.meta.BeansMeta;
 
 /**
  * Ioc容器接口

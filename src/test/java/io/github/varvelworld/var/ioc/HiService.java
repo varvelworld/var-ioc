@@ -1,6 +1,6 @@
 package io.github.varvelworld.var.ioc;
 
-import io.github.varvelworld.var.ioc.annotation.Resource;
+import io.github.varvelworld.var.ioc.core.annotation.Resource;
 
 /**
  * Created by luzhonghao on 2016/11/26.

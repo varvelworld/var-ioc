@@ -1,9 +1,9 @@
 package io.github.varvelworld.var.ioc;
 
-import io.github.varvelworld.var.ioc.annotation.Bean;
-import io.github.varvelworld.var.ioc.annotation.Beans;
-import io.github.varvelworld.var.ioc.annotation.Resource;
-import io.github.varvelworld.var.ioc.meta.BeanScope;
+import io.github.varvelworld.var.ioc.core.annotation.Bean;
+import io.github.varvelworld.var.ioc.core.annotation.Beans;
+import io.github.varvelworld.var.ioc.core.annotation.Resource;
+import io.github.varvelworld.var.ioc.core.meta.BeanScope;
 
 /**
  * Created by luzhonghao on 2016/11/26.
