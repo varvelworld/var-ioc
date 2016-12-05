@@ -4,10 +4,9 @@ import io.github.varvelworld.var.ioc.core.annotation.Resource;
 import io.github.varvelworld.var.ioc.core.meta.BeanResourcesMeta;
 import io.github.varvelworld.var.ioc.core.meta.factory.BeanResourcesMetaFactory;
 import io.github.varvelworld.var.ioc.core.meta.factory.ResourceMetaFactory;
+import io.github.varvelworld.var.ioc.util.ImmutablePair;
 
-import java.lang.reflect.Field;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Arrays;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -18,19 +17,13 @@ public class AnnotationBeanResourcesMetaFactoryImpl implements BeanResourcesMeta
 
     @Override
     public Function<Object, BeanResourcesMeta> beanResourcesMeta() {
-        return (bean) -> {
-            List<ResourceMetaFactory> resourceMetaFactoryList = new ArrayList<>();
-            for (Field field : bean.getClass().getDeclaredFields()) {
-                Resource annotation = field.getAnnotation(Resource.class);
-                if (annotation == null) {
-                    continue;
-                }
-                ResourceMetaFactory resourceMetaFactory = new AnnotationResourceMetaFactoryImpl(annotation, field);
-                resourceMetaFactoryList.add(resourceMetaFactory);
-            }
-            return new BeanResourcesMeta(resourceMetaFactoryList.stream()
-                    .map(ResourceMetaFactory::resourceMeta)
-                    .collect(Collectors.toList()));
-        };
+        return (bean) -> new BeanResourcesMeta(
+                Arrays.asList(bean.getClass().getDeclaredFields())
+                .stream()
+                .map(field -> new ImmutablePair<>(field, field.getAnnotation(Resource.class)))
+                .filter(pair -> pair.right() != null)
+                .map(pair -> new AnnotationResourceMetaFactoryImpl(pair.right(), pair.left()))
+                .map(ResourceMetaFactory::resourceMeta)
+                .collect(Collectors.toList()));
     }
 }
