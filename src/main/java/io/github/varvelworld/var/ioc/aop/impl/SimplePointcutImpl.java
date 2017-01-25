@@ -6,6 +6,7 @@ import io.github.varvelworld.var.ioc.util.StringUtils;
 import java.lang.reflect.Method;
 
 /**
+ * 简单切点,全匹配类的简单名称与方法名称
  * Created by luzhonghao on 2017/1/25.
  */
 public class SimplePointcutImpl implements Pointcut {

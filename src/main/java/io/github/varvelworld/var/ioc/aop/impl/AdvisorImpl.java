@@ -5,6 +5,7 @@ import io.github.varvelworld.var.ioc.aop.Advisor;
 import io.github.varvelworld.var.ioc.aop.Pointcut;
 
 /**
+ * 通知器实现
  * Created by luzhonghao on 2017/1/25.
  */
 public class AdvisorImpl implements Advisor {

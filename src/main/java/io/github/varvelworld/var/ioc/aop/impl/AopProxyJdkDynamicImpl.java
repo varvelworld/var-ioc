@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * jdk动态aop代理
  * Created by luzhonghao on 2016/12/30.
  */
 public class AopProxyJdkDynamicImpl<T> implements AopProxy<T>,InvocationHandler {

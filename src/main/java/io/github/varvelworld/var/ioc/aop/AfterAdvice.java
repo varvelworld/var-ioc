@@ -3,6 +3,7 @@ package io.github.varvelworld.var.ioc.aop;
 import java.lang.reflect.Method;
 
 /**
+ * 后置通知
  * Created by luzhonghao on 2016/12/30.
  */
 public interface AfterAdvice extends Advice {

@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
+ * aop代理工厂,过滤与当前bean无关的通知
  * Created by luzhonghao on 2017/1/25.
  */
 public class AopProxyFactoryFilterAdvisorImpl implements AopProxyFactory {
