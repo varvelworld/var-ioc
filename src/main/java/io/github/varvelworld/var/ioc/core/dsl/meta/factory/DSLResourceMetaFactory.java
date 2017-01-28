@@ -1,11 +1,10 @@
 package io.github.varvelworld.var.ioc.core.dsl.meta.factory;
 
 import io.github.varvelworld.var.ioc.core.BeanInjector;
-import io.github.varvelworld.var.ioc.core.BeanInjectorWithPropertyNameImpl;
+import io.github.varvelworld.var.ioc.core.impl.BeanInjectorWithPropertyNameImpl;
 import io.github.varvelworld.var.ioc.core.meta.ResourceMeta;
 import io.github.varvelworld.var.ioc.core.meta.factory.ResourceMetaFactory;
 
-import java.lang.reflect.Field;
 import java.util.function.Supplier;
 
 /**

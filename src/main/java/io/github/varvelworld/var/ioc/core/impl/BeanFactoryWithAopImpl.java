@@ -1,6 +1,8 @@
-package io.github.varvelworld.var.ioc.core;
+package io.github.varvelworld.var.ioc.core.impl;
 
 import io.github.varvelworld.var.ioc.aop.AopProxyFactory;
+import io.github.varvelworld.var.ioc.core.BeanFactory;
+import io.github.varvelworld.var.ioc.core.IocContainer;
 
 /**
  * Created by luzhonghao on 2017/1/25.

@@ -7,7 +7,7 @@ import io.github.varvelworld.var.ioc.aop.Pointcut;
 import io.github.varvelworld.var.ioc.aop.impl.AdvisorImpl;
 import io.github.varvelworld.var.ioc.aop.impl.SimplePointcutImpl;
 import io.github.varvelworld.var.ioc.core.BeanFactory;
-import io.github.varvelworld.var.ioc.core.BeanFactoryByConstructorImpl;
+import io.github.varvelworld.var.ioc.core.impl.BeanFactoryByConstructorImpl;
 import io.github.varvelworld.var.ioc.core.dsl.meta.factory.*;
 import io.github.varvelworld.var.ioc.core.meta.AopProxyType;
 import io.github.varvelworld.var.ioc.core.meta.BeanScope;

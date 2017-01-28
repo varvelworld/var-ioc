@@ -5,7 +5,7 @@ import io.github.varvelworld.var.ioc.HiService;
 import io.github.varvelworld.var.ioc.HiServiceImpl;
 import io.github.varvelworld.var.ioc.core.AbstractIocContainerTest;
 import io.github.varvelworld.var.ioc.core.IocContainer;
-import io.github.varvelworld.var.ioc.core.IocContainerImpl;
+import io.github.varvelworld.var.ioc.core.impl.IocContainerImpl;
 import io.github.varvelworld.var.ioc.core.meta.BeanScope;
 import org.junit.Assert;
 import org.junit.Test;

@@ -1,7 +1,7 @@
 package io.github.varvelworld.var.ioc.core.dsl.meta.factory;
 
 import io.github.varvelworld.var.ioc.core.BeanFactory;
-import io.github.varvelworld.var.ioc.core.BeanFactoryWithInjectImpl;
+import io.github.varvelworld.var.ioc.core.impl.BeanFactoryWithInjectImpl;
 import io.github.varvelworld.var.ioc.core.meta.AopProxyType;
 import io.github.varvelworld.var.ioc.core.meta.BeanMeta;
 import io.github.varvelworld.var.ioc.core.meta.BeanScope;

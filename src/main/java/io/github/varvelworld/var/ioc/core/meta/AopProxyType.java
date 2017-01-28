@@ -2,7 +2,7 @@ package io.github.varvelworld.var.ioc.core.meta;
 
 import io.github.varvelworld.var.ioc.aop.impl.AopProxyJdkDynamicFactoryImpl;
 import io.github.varvelworld.var.ioc.core.BeanFactory;
-import io.github.varvelworld.var.ioc.core.BeanFactoryWithAopImpl;
+import io.github.varvelworld.var.ioc.core.impl.BeanFactoryWithAopImpl;
 import io.github.varvelworld.var.ioc.exception.NotImplementedException;
 
 /**

@@ -1,6 +1,6 @@
 package io.github.varvelworld.var.ioc.core.annotation.meta.factory;
 
-import io.github.varvelworld.var.ioc.core.BeanInjectorWithFieldImpl;
+import io.github.varvelworld.var.ioc.core.impl.BeanInjectorWithFieldImpl;
 import io.github.varvelworld.var.ioc.core.annotation.Resource;
 import io.github.varvelworld.var.ioc.core.BeanInjector;
 import io.github.varvelworld.var.ioc.core.meta.ResourceMeta;

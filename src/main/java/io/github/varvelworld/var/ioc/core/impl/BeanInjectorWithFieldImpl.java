@@ -1,4 +1,6 @@
-package io.github.varvelworld.var.ioc.core;
+package io.github.varvelworld.var.ioc.core.impl;
+
+import io.github.varvelworld.var.ioc.core.BeanInjector;
 
 import java.lang.reflect.Field;
 

@@ -1,6 +1,8 @@
-package io.github.varvelworld.var.ioc.core;
+package io.github.varvelworld.var.ioc.core.impl;
 
 import io.github.varvelworld.var.ioc.aop.Advisor;
+import io.github.varvelworld.var.ioc.core.BeanFactory;
+import io.github.varvelworld.var.ioc.core.IocContainer;
 import io.github.varvelworld.var.ioc.core.meta.*;
 
 import java.util.ArrayList;

@@ -1,7 +1,7 @@
 package io.github.varvelworld.var.ioc.core.meta;
 
 import io.github.varvelworld.var.ioc.core.BeanFactory;
-import io.github.varvelworld.var.ioc.core.SingletonBeanFactoryImpl;
+import io.github.varvelworld.var.ioc.core.impl.SingletonBeanFactoryImpl;
 import io.github.varvelworld.var.ioc.exception.NotImplementedException;
 
 /**

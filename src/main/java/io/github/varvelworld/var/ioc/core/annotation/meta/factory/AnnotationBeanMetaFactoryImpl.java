@@ -1,8 +1,8 @@
 package io.github.varvelworld.var.ioc.core.annotation.meta.factory;
 
 import io.github.varvelworld.var.ioc.core.annotation.Bean;
-import io.github.varvelworld.var.ioc.core.BeanFactoryWithInjectImpl;
-import io.github.varvelworld.var.ioc.core.BeanFactoryWithParametersMethodImpl;
+import io.github.varvelworld.var.ioc.core.impl.BeanFactoryWithInjectImpl;
+import io.github.varvelworld.var.ioc.core.impl.BeanFactoryWithParametersMethodImpl;
 import io.github.varvelworld.var.ioc.core.meta.BeanMeta;
 import io.github.varvelworld.var.ioc.core.meta.ParamResourceMeta;
 import io.github.varvelworld.var.ioc.core.meta.factory.BeanMetaFactory;

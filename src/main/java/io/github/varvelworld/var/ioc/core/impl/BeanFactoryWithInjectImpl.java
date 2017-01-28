@@ -1,5 +1,7 @@
-package io.github.varvelworld.var.ioc.core;
+package io.github.varvelworld.var.ioc.core.impl;
 
+import io.github.varvelworld.var.ioc.core.BeanFactory;
+import io.github.varvelworld.var.ioc.core.IocContainer;
 import io.github.varvelworld.var.ioc.core.meta.BeanResourcesMeta;
 import io.github.varvelworld.var.ioc.core.meta.ResourceMeta;
 import io.github.varvelworld.var.ioc.core.meta.factory.BeanResourcesMetaFactory;
