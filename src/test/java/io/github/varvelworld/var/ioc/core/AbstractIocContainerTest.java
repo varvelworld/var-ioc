@@ -2,11 +2,18 @@ package io.github.varvelworld.var.ioc.core;
 
 import io.github.varvelworld.var.ioc.HelloPOJO;
 import io.github.varvelworld.var.ioc.HiService;
+import io.github.varvelworld.var.ioc.HiServiceImpl;
+import io.github.varvelworld.var.ioc.core.dsl.IocDSL;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
+
+import java.util.concurrent.atomic.AtomicInteger;
+
+import static io.github.varvelworld.var.ioc.core.dsl.IocDSL.advisor;
+import static io.github.varvelworld.var.ioc.core.dsl.IocDSL.simplePointcut;
 
 /**
  * Created by luzhonghao on 2016/12/3.
@@ -36,7 +43,7 @@ abstract public class AbstractIocContainerTest {
 
     @Test
     public void injectBean() throws Exception {
-        HiService hiService = (HiService) iocContainer.getBean("hi");
+        HiServiceImpl hiService = (HiServiceImpl) iocContainer.getBean("hi");
         Assert.assertEquals("hello world2", hiService.hello());
     }
 
@@ -60,8 +67,8 @@ abstract public class AbstractIocContainerTest {
 
     @Test
     public void prototypeThenSingletonBean() throws Exception {
-        HiService hi1 = (HiService) iocContainer.getBean("hi2");
-        HiService hi2 = (HiService) iocContainer.getBean("hi2");
+        HiServiceImpl hi1 = (HiServiceImpl) iocContainer.getBean("hi2");
+        HiServiceImpl hi2 = (HiServiceImpl) iocContainer.getBean("hi2");
         Assert.assertNotNull(hi1);
         Assert.assertNotNull(hi2);
         Assert.assertNotSame(hi1, hi2);
@@ -72,8 +79,8 @@ abstract public class AbstractIocContainerTest {
 
     @Test
     public void prototypeThenPrototypeBeanBean() throws Exception {
-        HiService hi1 = (HiService) iocContainer.getBean("hi2");
-        HiService hi2 = (HiService) iocContainer.getBean("hi2");
+        HiServiceImpl hi1 = (HiServiceImpl) iocContainer.getBean("hi2");
+        HiServiceImpl hi2 = (HiServiceImpl) iocContainer.getBean("hi2");
         Assert.assertNotNull(hi1);
         Assert.assertNotNull(hi2);
         Assert.assertNotSame(hi1, hi2);
@@ -84,7 +91,7 @@ abstract public class AbstractIocContainerTest {
 
     @Test
     public void resourceByConstructor() {
-        HiService hi3 = iocContainer.getBean("hi3", HiService.class);
+        HiServiceImpl hi3 = iocContainer.getBean("hi3", HiServiceImpl.class);
         Assert.assertNotNull(hi3);
         Assert.assertNotNull(hi3.getFun4());
         Assert.assertEquals("hello world4", hi3.getFun4().getName());

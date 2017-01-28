@@ -32,17 +32,17 @@ public class TestBeans {
     }
 
     @Bean
-    public HiService hi() {
-        return new HiService();
+    public HiServiceImpl hi() {
+        return new HiServiceImpl();
     }
 
     @Bean(scope = BeanScope.PROTOTYPE)
-    public HiService hi2() {
-        return new HiService();
+    public HiServiceImpl hi2() {
+        return new HiServiceImpl();
     }
 
     @Bean
-    public HiService hi3(@Resource("fun4") HelloPOJO fun4) {
-        return new HiService(fun4);
+    public HiServiceImpl hi3(@Resource("fun4") HelloPOJO fun4) {
+        return new HiServiceImpl(fun4);
     }
 }

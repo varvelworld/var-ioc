@@ -13,6 +13,7 @@ import java.util.List;
 public interface IocContainer {
     IocContainer loadMeta(BeansMeta beansMeta);
     IocContainer loadMeta(BeanMeta beanMeta);
+    IocContainer loadAdvisor(Advisor advisor);
     IocContainer refreshMeta();
     Object getBean(String id);
     <T> T getBean(String id, Class<T> clazz);

@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.atomic.AtomicReference;
 
 /**
  * Ioc容器接口实现
@@ -14,9 +15,11 @@ import java.util.Map;
  */
 public class IocContainerImpl implements IocContainer {
 
-    final private Map<String, BeanFactory> beanMap = new HashMap<>();
+    final private AtomicReference<Map<String, BeanFactory>> beanMap = new AtomicReference<>(new HashMap<>());
+    private AtomicReference<Map<String, BeanFactory>> oldBeanMap = new AtomicReference<>(null);
     final private List<BeanFactory> notInstanceSingletonBeanList = new ArrayList<>();
     final private List<Advisor> advisors = new ArrayList<>();
+    private boolean dirtyOfAdvisors = false;
 
     @Override
     public IocContainer loadMeta(BeansMeta beansMeta) {
@@ -27,7 +30,7 @@ public class IocContainerImpl implements IocContainer {
     @Override
     public IocContainer loadMeta(BeanMeta beanMeta) {
         BeanFactory beanFactory = beanMeta.beanFactory();
-        if(beanMap.putIfAbsent(beanMeta.getId(), beanFactory)
+        if(beanMap.get().putIfAbsent(beanMeta.getId(), beanFactory)
                 != null) {
             throw new RuntimeException("duplication id");
         }
@@ -36,14 +39,31 @@ public class IocContainerImpl implements IocContainer {
     }
 
     @Override
+    public IocContainer loadAdvisor(Advisor advisor) {
+        advisors.add(advisor);
+        dirtyOfAdvisors = true;
+        return this;
+    }
+
+    @Override
     public IocContainer refreshMeta() {
+        if(dirtyOfAdvisors) {
+            Map<String, BeanFactory> old = beanMap.get();
+            oldBeanMap.set(old);
+            beanMap.set(new HashMap<>(old));
+            dirtyOfAdvisors = true;
+        }
         /** 实例化单例bean **/
         notInstanceSingletonBeanList.stream().forEach(beanFactory -> beanFactory.bean(this));
+        oldBeanMap.set(null);
         return this;
     }
 
     @Override
     public Object getBean(String id) {
+        Map<String, BeanFactory> beanMap = oldBeanMap.get() != null
+                ? oldBeanMap.get()
+                : this.beanMap.get();
         return beanMap.get(id).bean(this);
     }
 

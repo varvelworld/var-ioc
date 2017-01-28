@@ -1,7 +1,11 @@
 package io.github.varvelworld.var.ioc.core.dsl;
 
-import io.github.varvelworld.var.ioc.aop.AopProxyFactory;
-import io.github.varvelworld.var.ioc.aop.impl.AopProxyJdkDynamicFactoryImpl;
+import io.github.varvelworld.var.ioc.aop.Advice;
+import io.github.varvelworld.var.ioc.aop.Advisor;
+import io.github.varvelworld.var.ioc.aop.BeforeAdvice;
+import io.github.varvelworld.var.ioc.aop.Pointcut;
+import io.github.varvelworld.var.ioc.aop.impl.AdvisorImpl;
+import io.github.varvelworld.var.ioc.aop.impl.SimplePointcutImpl;
 import io.github.varvelworld.var.ioc.core.BeanFactory;
 import io.github.varvelworld.var.ioc.core.BeanFactoryByConstructorImpl;
 import io.github.varvelworld.var.ioc.core.dsl.meta.factory.*;
@@ -108,5 +112,17 @@ public class IocDSL {
 
     public static ResourceMetaFactory property(String id, String propertyName) {
         return new DSLResourceMetaFactory(id, propertyName);
+    }
+
+    public static Advisor advisor(Advice advice, Pointcut pointcut) {
+        return new AdvisorImpl(advice, pointcut);
+    }
+
+    public static BeforeAdvice before(BeforeAdvice beforeAdvice) {
+        return beforeAdvice;
+    }
+
+    public static Pointcut simplePointcut(String classSimpleName, String methodName) {
+        return new SimplePointcutImpl(classSimpleName, methodName);
     }
 }
