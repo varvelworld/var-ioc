@@ -4,6 +4,7 @@ import io.github.varvelworld.var.ioc.core.meta.BeanResourcesMeta;
 import io.github.varvelworld.var.ioc.core.meta.ResourceMeta;
 import io.github.varvelworld.var.ioc.core.meta.factory.BeanResourcesMetaFactory;
 
+import java.lang.reflect.Proxy;
 import java.util.function.Function;
 
 /**

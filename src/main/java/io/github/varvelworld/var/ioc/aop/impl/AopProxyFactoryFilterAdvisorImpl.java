@@ -23,10 +23,13 @@ public class AopProxyFactoryFilterAdvisorImpl implements AopProxyFactory {
 
     @Override
     public <T> AopProxy<T> aopProxy(T bean, List<Advisor> advisors) {
-        return aopProxyFactory.aopProxy(bean, advisors
+        advisors = advisors
                 .stream()
                 .filter(advisor -> accept(bean, advisor))
-                .collect(Collectors.toList()));
+                .collect(Collectors.toList());
+        return !advisors.isEmpty()
+                ? aopProxyFactory.aopProxy(bean, advisors)
+                : new AopNoneProxyImpl<>(bean);
     }
 
     private boolean accept(Object bean, Advisor advisor) {

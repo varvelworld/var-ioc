@@ -1,5 +1,6 @@
 package io.github.varvelworld.var.ioc.core.annotation;
 
+import io.github.varvelworld.var.ioc.core.meta.AopProxyType;
 import io.github.varvelworld.var.ioc.core.meta.BeanScope;
 
 import java.lang.annotation.ElementType;
@@ -23,5 +24,12 @@ public @interface Bean {
      * bean 作用范围
      * @return
      */
-    BeanScope socpe() default BeanScope.SINGLETON;
+    BeanScope scope() default BeanScope.SINGLETON;
+
+    /**
+     * aop 类型
+     * @return
+     */
+    AopProxyType aopProxyType() default AopProxyType.JDK_DYNAMIC;
+
 }

@@ -21,7 +21,7 @@ public class TestBeans {
         return new HelloPOJO("hello world2");
     }
 
-    @Bean(socpe = BeanScope.PROTOTYPE)
+    @Bean(scope = BeanScope.PROTOTYPE)
     private HelloPOJO fun3() {
         return new HelloPOJO("hello world3");
     }
@@ -36,7 +36,7 @@ public class TestBeans {
         return new HiService();
     }
 
-    @Bean(socpe = BeanScope.PROTOTYPE)
+    @Bean(scope = BeanScope.PROTOTYPE)
     public HiService hi2() {
         return new HiService();
     }

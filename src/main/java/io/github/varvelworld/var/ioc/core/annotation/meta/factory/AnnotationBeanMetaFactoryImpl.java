@@ -24,15 +24,17 @@ public class AnnotationBeanMetaFactoryImpl implements BeanMetaFactory {
 
     public AnnotationBeanMetaFactoryImpl(final Object beansInstance, final Method method, Bean annotation) {
         this.beanMeta = () -> new BeanMeta(annotation.value().isEmpty() ? method.getName() : annotation.value()
-                , new BeanFactoryWithInjectImpl(
-                    annotation.socpe().wrap(
-                            new BeanFactoryWithParametersMethodImpl(beansInstance
+                , annotation.scope().wrap(
+                    annotation.aopProxyType().wrap(
+                        new BeanFactoryWithInjectImpl(
+                            new BeanFactoryWithParametersMethodImpl(
+                                    beansInstance
                                     , method
                                     , new AnnotationParamResourcesMetaFactoryImpl(method.getParameters())
-                                    .paramResourcesMeta()
-                    .paramResourceMetaList().stream().map(ParamResourceMeta::beanGetter)
-                    .collect(Collectors.toList())))
-                , new AnnotationBeanResourcesMetaFactoryImpl().beanResourcesMeta()));
+                                        .paramResourcesMeta()
+                                        .paramResourceMetaList().stream().map(ParamResourceMeta::beanGetter)
+                                        .collect(Collectors.toList()))
+                            , new AnnotationBeanResourcesMetaFactoryImpl().beanResourcesMeta()))));
     }
 
     public BeanMeta beanMeta() {

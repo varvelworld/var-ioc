@@ -1,8 +1,15 @@
 package io.github.varvelworld.var.ioc.core.dsl;
 
+import io.github.varvelworld.var.ioc.aop.AopProxyFactory;
+import io.github.varvelworld.var.ioc.aop.impl.AopProxyJdkDynamicFactoryImpl;
+import io.github.varvelworld.var.ioc.core.BeanFactory;
+import io.github.varvelworld.var.ioc.core.BeanFactoryByConstructorImpl;
 import io.github.varvelworld.var.ioc.core.dsl.meta.factory.*;
+import io.github.varvelworld.var.ioc.core.meta.AopProxyType;
 import io.github.varvelworld.var.ioc.core.meta.BeanScope;
+import io.github.varvelworld.var.ioc.core.meta.ParamResourcesMeta;
 import io.github.varvelworld.var.ioc.core.meta.factory.*;
+import io.github.varvelworld.var.ioc.util.ClassUtils;
 
 import java.util.Arrays;
 import java.util.function.Supplier;
@@ -16,62 +23,74 @@ public class IocDSL {
         return new DSLBeansMetaFactoryImpl(Arrays.asList(beanMetaFactories));
     }
 
-    public static BeanMetaFactory bean(String id, Supplier<?> beanSupplier
-            , BeanResourcesMetaFactory beanResourcesMetaFactory, BeanScope beanScope) {
-        return new DSLBeanMetaFactoryImpl(id, iocContainer -> beanSupplier.get(), beanResourcesMetaFactory, beanScope);
+    private final static ParamResourcesMetaFactory DEFAULT_PARAM_RESOURCES_META_FACTORY
+            = ParamResourcesMetaFactory.EMPTY;
+    private final static BeanResourcesMetaFactory DEFAULT_BEAN_RESOURCES_META_FACTORY
+            = BeanResourcesMetaFactory.EMPTY;
+    private final static BeanScope DEFAULT_BEAN_SCOPE
+            = BeanScope.SINGLETON;
+    private final static AopProxyType DEFAULT_AOP_PROXY_TYPE
+            = AopProxyType.JDK_DYNAMIC;
+
+    public static BeanFactory factory(Class<?> clazz, ParamResourcesMetaFactory paramResourcesMetaFactory) {
+        ParamResourcesMeta paramResourcesMeta = paramResourcesMetaFactory.paramResourcesMeta();
+        return new BeanFactoryByConstructorImpl(ClassUtils.getConstructorByArgCount(clazz
+                , paramResourcesMeta.paramResourceMetaList().size())
+                , paramResourcesMeta);
     }
 
-    public static BeanMetaFactory bean(String id, Supplier<?> beanSupplier
-            , BeanResourcesMetaFactory beanResourcesMetaFactory) {
-        return bean(id, beanSupplier, beanResourcesMetaFactory, BeanScope.SINGLETON);
+    public static BeanFactory factory(Class<?> clazz) {
+        return factory(clazz, DEFAULT_PARAM_RESOURCES_META_FACTORY);
     }
 
-    public static BeanMetaFactory bean(String id, Supplier<?> beanSupplier
-            , BeanScope beanScope) {
-        return bean(id, beanSupplier, BeanResourcesMetaFactory.EMPTY, beanScope);
+    public static BeanFactory factory(Supplier<?> beanSupplier) {
+        return iocContainer -> beanSupplier.get();
     }
 
-    public static BeanMetaFactory bean(String id, Supplier<?> beanSupplier) {
-        return bean(id, beanSupplier, BeanResourcesMetaFactory.EMPTY);
+    public static BeanMetaFactory bean(String id, BeanFactory beanFactory
+            , BeanResourcesMetaFactory beanResourcesMetaFactory
+            , BeanScope beanScope
+            , AopProxyType aopProxyType) {
+        return new DSLBeanMetaFactoryImpl(id, beanFactory
+                , beanResourcesMetaFactory, beanScope, aopProxyType);
     }
 
-    public static BeanMetaFactory bean(String id, Class<?> clazz
-            , ParamResourcesMetaFactory paramResourcesMetaFactory
+    public static BeanMetaFactory bean(String id, BeanFactory beanFactory
+            , BeanScope beanScope
+            , AopProxyType aopProxyType) {
+        return bean(id, beanFactory, DEFAULT_BEAN_RESOURCES_META_FACTORY, beanScope, aopProxyType);
+    }
+
+
+    public static BeanMetaFactory bean(String id, BeanFactory beanFactory
+            , BeanResourcesMetaFactory beanResourcesMetaFactory
+            , AopProxyType aopProxyType) {
+        return bean(id, beanFactory, beanResourcesMetaFactory, DEFAULT_BEAN_SCOPE, aopProxyType);
+    }
+
+    public static BeanMetaFactory bean(String id, BeanFactory beanFactory
             , BeanResourcesMetaFactory beanResourcesMetaFactory
             , BeanScope beanScope) {
-
-        return new DSLBeanMetaFactoryImpl(id, clazz, paramResourcesMetaFactory, beanResourcesMetaFactory, beanScope);
+        return bean(id, beanFactory, beanResourcesMetaFactory, beanScope, DEFAULT_AOP_PROXY_TYPE);
     }
 
-    public static BeanMetaFactory bean(String id, Class<?> clazz, BeanResourcesMetaFactory beanResourcesMetaFactory
+    public static BeanMetaFactory bean(String id, BeanFactory beanFactory
+            , AopProxyType aopProxyType) {
+        return bean(id, beanFactory, DEFAULT_BEAN_RESOURCES_META_FACTORY, DEFAULT_BEAN_SCOPE, aopProxyType);
+    }
+
+    public static BeanMetaFactory bean(String id, BeanFactory beanFactory
             , BeanScope beanScope) {
-        return bean(id, clazz, ParamResourcesMetaFactory.EMPTY, beanResourcesMetaFactory, beanScope);
+        return bean(id, beanFactory, DEFAULT_BEAN_RESOURCES_META_FACTORY, beanScope, DEFAULT_AOP_PROXY_TYPE);
     }
 
-    public static BeanMetaFactory bean(String id, Class<?> clazz, ParamResourcesMetaFactory paramResourcesMetaFactory
-            , BeanScope beanScope) {
-        return bean(id, clazz, paramResourcesMetaFactory, BeanResourcesMetaFactory.EMPTY, beanScope);
-    }
-
-    public static BeanMetaFactory bean(String id, Class<?> clazz, ParamResourcesMetaFactory paramResourcesMetaFactory
+    public static BeanMetaFactory bean(String id, BeanFactory beanFactory
             , BeanResourcesMetaFactory beanResourcesMetaFactory) {
-        return bean(id, clazz, paramResourcesMetaFactory, beanResourcesMetaFactory, BeanScope.SINGLETON);
+        return bean(id, beanFactory, beanResourcesMetaFactory, DEFAULT_BEAN_SCOPE, DEFAULT_AOP_PROXY_TYPE);
     }
 
-    public static BeanMetaFactory bean(String id, Class<?> clazz, BeanResourcesMetaFactory beanResourcesMetaFactory) {
-        return bean(id, clazz, beanResourcesMetaFactory, BeanScope.SINGLETON);
-    }
-
-    public static BeanMetaFactory bean(String id, Class<?> clazz, ParamResourcesMetaFactory paramResourcesMetaFactory) {
-        return bean(id, clazz, paramResourcesMetaFactory, BeanResourcesMetaFactory.EMPTY, BeanScope.SINGLETON);
-    }
-
-    public static BeanMetaFactory bean(String id, Class<?> clazz, BeanScope scope) {
-        return bean(id, clazz, ParamResourcesMetaFactory.EMPTY, BeanResourcesMetaFactory.EMPTY, scope);
-    }
-
-    public static BeanMetaFactory bean(String id, Class<?> clazz) {
-        return bean(id, clazz, BeanResourcesMetaFactory.EMPTY);
+    public static BeanMetaFactory bean(String id, BeanFactory beanFactory) {
+        return bean(id, beanFactory, DEFAULT_BEAN_RESOURCES_META_FACTORY, DEFAULT_BEAN_SCOPE, DEFAULT_AOP_PROXY_TYPE);
     }
 
     public static ParamResourcesMetaFactory constructor(ParamResourceMetaFactory... paramResourceMetaFactories) {

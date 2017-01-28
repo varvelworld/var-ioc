@@ -1,5 +1,6 @@
 package io.github.varvelworld.var.ioc.core.annotation.meta.factory;
 
+import io.github.varvelworld.var.ioc.core.BeanInjectorWithFieldImpl;
 import io.github.varvelworld.var.ioc.core.annotation.Resource;
 import io.github.varvelworld.var.ioc.core.BeanInjector;
 import io.github.varvelworld.var.ioc.core.meta.ResourceMeta;
@@ -16,15 +17,7 @@ public class AnnotationResourceMetaFactoryImpl implements ResourceMetaFactory {
     private final Supplier<ResourceMeta> resourceMeta;
 
     public AnnotationResourceMetaFactoryImpl(Resource annotation, Field field) {
-        BeanInjector beanInjector = (bean, injectBean) -> {
-            try {
-                field.setAccessible(true);
-                field.set(bean, injectBean);
-                field.setAccessible(false);
-            } catch (IllegalAccessException e) {
-                throw new RuntimeException(e);
-            }
-        };
+        BeanInjector beanInjector = new BeanInjectorWithFieldImpl(field);
         String id = annotation.value().isEmpty() ? field.getName() : annotation.value();
         this.resourceMeta = () -> new ResourceMeta(id, beanInjector);
     }
