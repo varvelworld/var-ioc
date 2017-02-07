@@ -9,7 +9,7 @@ import io.github.varvelworld.var.ioc.core.IocContainer;
 public class SingletonBeanFactoryImpl implements BeanFactory {
 
     final private BeanFactory beanFactory;
-    private Object bean;
+    volatile private Object bean; // 使用volatile避免指令重排
 
     public SingletonBeanFactoryImpl(BeanFactory beanFactory) {
         this.beanFactory = beanFactory;
